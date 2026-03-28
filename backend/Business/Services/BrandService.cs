@@ -129,8 +129,8 @@ namespace MarketFlow.Business.Services
             if (!findResult.IsSuccess)
             {
                 return Result<bool>.Failure(
-                    ResultCodes.CategoryNotFound,
-                    findResult.StatusCode);
+                    ResultCodes.BrandNotFound,
+                    404);
             }
 
 
