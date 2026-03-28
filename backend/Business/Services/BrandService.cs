@@ -54,11 +54,15 @@ namespace MarketFlow.Business.Services
         {
             var findResult = await _repo.FindByAsync(c => c.Id == id);
 
-            var result = findResult.Data?.ToDTO();
-            if (result != null)
+            if (!findResult.IsSuccess || findResult.Data == null)
             {
-                result.ImageUrl = ToAbsoluteUrl(result.ImageUrl);
+                return Result<BrandDTO>.Failure(
+                    ResultCodes.BrandNotFound,
+                    404);
             }
+
+            var result = findResult.Data?.ToDTO();
+            result.ImageUrl = ToAbsoluteUrl(result.ImageUrl);
 
             return Result<BrandDTO>.Success(result);
         }
@@ -93,7 +97,7 @@ namespace MarketFlow.Business.Services
             {
                 return Result<BrandDTO>.Failure(
                     ResultCodes.BrandNotFound,
-                    existingResult.StatusCode,
+                    404,
                     "Brand not found");
             }
 

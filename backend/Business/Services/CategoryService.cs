@@ -53,11 +53,15 @@ namespace MarketFlow.Business.Services
         {
             var findResult = await _repo.FindByAsync(c => c.Id == id);
 
-            var result = findResult.Data?.ToDTO();
-            if (result != null)
+            if (!findResult.IsSuccess || findResult.Data == null)
             {
-                result.ImageUrl = ToAbsoluteUrl(result.ImageUrl);
+                return Result<CategoryDTO>.Failure(
+                    ResultCodes.CategoryNotFound,
+                    404);
             }
+
+            var result = findResult.Data?.ToDTO();
+            result.ImageUrl = ToAbsoluteUrl(result.ImageUrl);
 
             return Result<CategoryDTO>.Success(result);
         }
@@ -92,7 +96,7 @@ namespace MarketFlow.Business.Services
             {
                 return Result<CategoryDTO>.Failure(
                     ResultCodes.CategoryNotFound,
-                    existingResult.StatusCode,
+                    404,
                     "Category not found");
             }
 
