@@ -1,0 +1,6 @@
+@MarketFlow_HostAddress = http://localhost:5013
+
+GET {{MarketFlow_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

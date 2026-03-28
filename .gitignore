@@ -1,0 +1,20 @@
+
+# .NET
+**/bin/
+**/obj/
+*.user
+*.suo
+.vs/
+*.db
+
+# Node / Vite / React
+**/node_modules/
+**/dist/
+.env
+.env.*
+
+# VS Code
+.vscode/
+
+backend/wwwroot/Uploads/
+
