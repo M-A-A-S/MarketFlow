@@ -10,6 +10,7 @@ namespace MarketFlow.Business
             services.AddScoped<IImageService, ImageService>();
 
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IBrandService, BrandService>();
 
             return services;
         }
