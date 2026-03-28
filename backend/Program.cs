@@ -1,4 +1,6 @@
+using MarketFlow.Business;
 using MarketFlow.DataAccess;
+using MarketFlow.Utilities;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.Configure<ImageSettings>(builder.Configuration.GetSection("ImageSettings"));
+
+builder.Services.AddApplicationRepositories();
+builder.Services.AddApplicationServices();
+
+builder.Services.AddLogging();  
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
