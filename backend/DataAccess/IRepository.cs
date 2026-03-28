@@ -30,10 +30,10 @@ Func<IQueryable<T>, IQueryable<T>>? include = null);
 
         Task<Result<PagedResult<T>>> GetPagedAsync(
 Expression<Func<T, bool>>? filter = null,
+Func<IQueryable<T>, IQueryable<T>>? include = null,
 Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
 int pageNumber = 1,
-int pageSize = 10,
-params Expression<Func<T, object>>[] includes);
+int pageSize = 10);
 
     }
 }
