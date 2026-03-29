@@ -48,7 +48,7 @@ const ImagePicker = ({ imageUrl, imageFile, onChange, label = "" }) => {
             font-black transition-all 
              ${
                type === "url"
-                 ? "bg-orange-600 text-white"
+                 ? "bg-purple-600 text-white"
                  : "text-gray-400 hover:text-gray-600"
              }`}
         >
@@ -65,7 +65,7 @@ const ImagePicker = ({ imageUrl, imageFile, onChange, label = "" }) => {
             font-black transition-all
               ${
                 type === "file"
-                  ? "bg-orange-600 text-white"
+                  ? "bg-purple-600 text-white"
                   : "text-gray-400 hover:text-gray-600"
               }`}
         >
@@ -85,7 +85,7 @@ const ImagePicker = ({ imageUrl, imageFile, onChange, label = "" }) => {
               className="w-full h-full bg-gray-50 dark:bg-slate-800
             rounded-xl px-4 py-2
             border border-gray-200 dark:border-gray-700
-            focus:ring-2 focus:ring-orange-500 outline-none"
+            focus:ring-2 focus:ring-purple-500 outline-none"
             />
           )}
 
@@ -96,8 +96,8 @@ const ImagePicker = ({ imageUrl, imageFile, onChange, label = "" }) => {
           w-full h-full border-2 
           border-dashed rounded-lg cursor-pointer 
           bg-gray-50 dark:bg-slate-800 
-          hover:bg-orange-100
-          hover:border-orange-500"
+          hover:bg-purple-100
+          hover:border-purple-500"
             >
               <Upload /> <span>{selectFile || "Select File"}</span>
               <input

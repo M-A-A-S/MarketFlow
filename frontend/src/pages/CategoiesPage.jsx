@@ -37,14 +37,13 @@ const CategoiesPage = () => {
     delete_fail,
     delete_category_title,
     delete_category_message,
-    delete_label,
     add_success,
     add_fail,
     update_success,
     update_fail,
   } = translations.pages.categories_page;
 
-  const { cancel, loading_error } = translations.common;
+  const { cancel, delete_label, loading_error } = translations.common;
 
   const fetchCategories = async () => {
     try {

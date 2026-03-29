@@ -16,7 +16,7 @@
   "common": {
     "save": "حفظ",
     "cancel": "إلغاء",
-    "delete": "حذف",
+    "delete_label": "حذف",
     "loading_error": "حدث خطأ ما. الرجاء المحاولة مرة أخرى.",
     "actions": "الإجراءات"
   },
