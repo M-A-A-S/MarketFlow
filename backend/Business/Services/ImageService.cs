@@ -75,12 +75,6 @@ namespace MarketFlow.Business.Services
             return fullPath;
         }
 
-        public string GetFullPath(string folderName, string fileName)
-        {
-            if (string.IsNullOrWhiteSpace(fileName)) return null!;
-            return Path.Combine(folderName, fileName).Replace("\\", "/"); // relative URL for frontend
-        }
-
         // ===================== SAVE =====================
         public async Task<Result<string>> SaveImageAsync(IFormFile image, string folderName)
         {
@@ -92,7 +86,6 @@ namespace MarketFlow.Business.Services
 
             var extension = Path.GetExtension(image.FileName);
             var fileName = $"{Guid.NewGuid()}{extension}";
-
             var folderPath = Path.Combine(UploadRoot, folderName);
 
             Directory.CreateDirectory(folderPath);
@@ -104,7 +97,7 @@ namespace MarketFlow.Business.Services
 
             var relativePath = Path.Combine(folderName, fileName).Replace("\\", "/");
 
-            return Result<string>.Success(fileName, ResultCodes.ImageSaved);
+            return Result<string>.Success(relativePath, ResultCodes.ImageSaved);
         }
 
         // ===================== DELETE =====================

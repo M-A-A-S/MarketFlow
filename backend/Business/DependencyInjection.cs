@@ -8,6 +8,7 @@ namespace MarketFlow.Business
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<IImageProcessor, ImageProcessor>();
 
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IBrandService, BrandService>();

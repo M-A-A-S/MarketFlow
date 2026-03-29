@@ -45,7 +45,7 @@ var appSettings = app.Services
     .GetRequiredService<IOptions<AppSettings>>()
     .Value;
 
-ImageUrlHelper.Configure(appSettings.BaseUrl);
+ImageHelper.Configure(appSettings.BaseUrl);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

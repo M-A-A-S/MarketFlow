@@ -10,7 +10,5 @@ namespace MarketFlow.Business.Interfaces
             string? oldRelativePath,
             IFormFile newImage,
             string folderName);
-
-        string GetFullPath(string folderName, string fileName);
     }
 }

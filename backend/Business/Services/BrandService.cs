@@ -12,16 +12,19 @@ namespace MarketFlow.Business.Services
     public class BrandService : IBrandService
     {
         private readonly IBrandRepository _repo;
-        private readonly IImageService _imageService;
-        private readonly IOptions<ImageSettings> _imageSettings;
+        private readonly IImageProcessor _imageProcessor;
+        //private readonly IImageService _imageService;
+        //private readonly IOptions<ImageSettings> _imageSettings;
+        private readonly string _folderName;
 
         public BrandService(IBrandRepository repo,
-            IImageService imageService,
+            IImageProcessor imageProcessor,
             IOptions<ImageSettings> imageSettings)
         {
             _repo = repo;
-            _imageService = imageService;
-            _imageSettings = imageSettings;
+            _imageProcessor = imageProcessor;
+            //_imageSettings = imageSettings;
+            _folderName = imageSettings.Value.BrandFolder;
         }
 
 
@@ -29,19 +32,28 @@ namespace MarketFlow.Business.Services
         public async Task<Result<BrandDTO>> AddAsync(BrandDTO dto)
         {
             var entity = dto.ToEntity();
-            entity.ImageUrl = await ProcessImageAsync(dto.ImageFile, dto.ImageUrl);
+
+            var imageResult = await _imageProcessor.ProcessImageAsync(
+                dto.ImageFile, dto.ImageUrl, null, _folderName);
+
+            if (!imageResult.IsSuccess)
+            {
+                return Result<BrandDTO>.Failure(imageResult.Code, 500);
+            }
+
+            entity.ImageUrl = imageResult.Data;
 
             var addResult = await _repo.AddAndSaveAsync(entity);
 
             if (!addResult.IsSuccess && dto.ImageFile != null)
             {
-                await _imageService.DeleteImage(entity.ImageUrl);
+                await _imageProcessor.DeleteLocalFile(entity.ImageUrl, _folderName);
             }
 
             var result = addResult.Data?.ToDTO();
             if (result != null)
             {
-                result.ImageUrl = ToAbsoluteUrl(result.ImageUrl);
+                result.ImageUrl = ImageHelper.ToAbsoluteUrl(result.ImageUrl, _folderName);
             }
 
 
@@ -62,7 +74,7 @@ namespace MarketFlow.Business.Services
             }
 
             var result = findResult.Data?.ToDTO();
-            result.ImageUrl = ToAbsoluteUrl(result.ImageUrl);
+            result.ImageUrl = ImageHelper.ToAbsoluteUrl(result.ImageUrl, _folderName);
 
             return Result<BrandDTO>.Success(result);
         }
@@ -81,7 +93,7 @@ namespace MarketFlow.Business.Services
             foreach (var item in categoriesResult.Data)
             {
                 var newItem = item.ToDTO();
-                newItem.ImageUrl = ToAbsoluteUrl(newItem.ImageUrl);
+                newItem.ImageUrl = ImageHelper.ToAbsoluteUrl(newItem.ImageUrl, _folderName);
                 result.Add(newItem);
             }
 
@@ -102,19 +114,25 @@ namespace MarketFlow.Business.Services
             }
 
             var entity = existingResult.Data;
-            entity.ImageUrl = await ProcessImageAsync(
-                dto.ImageFile, dto.ImageUrl,
-                dto.DeleteImage, entity.ImageUrl);
 
+            var imageResult = await _imageProcessor.ProcessImageAsync(
+                dto.ImageFile, dto.ImageUrl, null, _folderName);
 
-            entity.UpdateFromDTO(dto);
+            if (!imageResult.IsSuccess)
+            {
+                return Result<BrandDTO>.Failure(imageResult.Code, 500);
+            }
+
+            entity.UpdateFromDTO(dto);      
+
+            entity.ImageUrl = imageResult.Data;
 
             var updateResult = await _repo.UpdateAndSaveAsync(existingResult.Data);
 
             var result = updateResult.Data?.ToDTO();
             if (result != null)
             {
-                result.ImageUrl = ToAbsoluteUrl(result.ImageUrl);
+                result.ImageUrl = ImageHelper.ToAbsoluteUrl(result.ImageUrl, _folderName);
             }
 
             return Result<BrandDTO>.Success(result);
@@ -138,70 +156,5 @@ namespace MarketFlow.Business.Services
         }
         #endregion
 
-
-        #region Private Helpers
-
-        private async Task<string?> ProcessImageAsync(
-            IFormFile? imageFile,
-            string? imageUrl,
-            bool deleteOld = false,
-            string? oldImage = null)
-        {
-            string? finalImage = oldImage;
-
-            // Delete old image if requested
-            if (deleteOld && !string.IsNullOrWhiteSpace(oldImage))
-            {
-                var deleteResult = await _imageService.DeleteImage(
-                    Path.Combine(_imageSettings.Value.CategoryFolder, oldImage));
-                if (!deleteResult.IsSuccess)
-                    throw new InvalidOperationException($"Failed to delete image: {deleteResult.Code}");
-
-                finalImage = null;
-            }
-
-            // Save or replace image file
-            if (imageFile != null)
-            {
-                var replaceResult = await _imageService.ReplaceImageAsync(oldImage, imageFile, _imageSettings.Value.CategoryFolder);
-                if (!replaceResult.IsSuccess)
-                    throw new InvalidOperationException($"Failed to save image: {replaceResult.Code}");
-
-                finalImage = replaceResult.Data;
-            }
-
-            // Handle ImageUrl (external or internal)
-            else if (!string.IsNullOrWhiteSpace(imageUrl) && imageUrl.IsValidImageUrl())
-            {
-                finalImage = Uri.TryCreate(imageUrl, UriKind.Absolute, out _) ? imageUrl : Path.GetFileName(imageUrl);
-            }
-            else
-            {
-                finalImage = null;
-            }
-
-            return finalImage;
-        }
-
-
-        private string? ToAbsoluteUrl(string? fileName)
-        {
-            if (string.IsNullOrWhiteSpace(fileName))
-            {
-                return null;
-            }
-
-            // External URL: return as-is
-            if (Uri.TryCreate(fileName, UriKind.Absolute, out _))
-            {
-                return fileName;
-            }
-
-            return ImageUrlHelper.ToAbsoluteUrl(
-                _imageService.GetFullPath(
-                    _imageSettings.Value.CategoryFolder, fileName));
-        }
-
-        #endregion
     }
 }
