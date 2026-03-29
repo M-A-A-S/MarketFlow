@@ -1,7 +1,7 @@
 import { Grid2x2, TextAlignJustify } from "lucide-react";
 import Button from "./Button";
 
-export const ViewSwitcher = ({ view, setView }) => {
+const ViewSwitcher = ({ view, setView }) => {
   return (
     <div
       className=" flex
@@ -35,3 +35,5 @@ export const ViewSwitcher = ({ view, setView }) => {
     </div>
   );
 };
+
+export default ViewSwitcher;

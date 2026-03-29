@@ -5,5 +5,50 @@
     "products": "المنتجات",
     "categories": "الفئات",
     "brands": "العلامات التجارية"
+  },
+  "common": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "loading_error": "حدث خطأ ما. الرجاء المحاولة مرة أخرى.",
+    "actions": "الإجراءات"
+  },
+  "pages": {
+    "categories_page": {
+      "title": "الفئات",
+      "description": "إدارة وتنظيم فئات القائمة.",
+      "add_new_category": "إضافة فئة جديدة",
+      "edit_category": "تعديل الفئة",
+      "empty_state": "لم يتم العثور على فئات.",
+
+      "nameEn": "اسم الفئة (إنجليزي)",
+      "nameEn_placeholder": "أدخل اسم الفئة باللغة الإنجليزية",
+      "nameEn_error": "الاسم (إنجليزي) مطلوب",
+
+      "nameAr": "اسم الفئة (عربي)",
+      "nameAr_placeholder": "أدخل اسم الفئة باللغة العربية",
+      "nameAr_error": "الاسم (عربي) مطلوب",
+
+      "descriptionEn": "الوصف (إنجليزي)",
+      "descriptionEn_placeholder": "أدخل الوصف باللغة الإنجليزية",
+
+      "descriptionAr": "الوصف (عربي)",
+      "descriptionAr_placeholder": "أدخل الوصف باللغة العربية",
+
+      "image": "صورة الفئة",
+      "delete_image_label": "حذف الصورة الحالية",
+
+      "delete_success": "تم حذف الفئة بنجاح!",
+      "delete_fail": "فشل في حذف الفئة. حاول مرة أخرى.",
+
+      "add_success": "تم إضافة الفئة بنجاح!",
+      "add_fail": "فشل في إضافة الفئة. حاول مرة أخرى.",
+
+      "update_success": "تم تحديث الفئة بنجاح!",
+      "update_fail": "فشل في تحديث الفئة. حاول مرة أخرى.",
+
+      "delete_category_title": "حذف الفئة",
+      "delete_category_message": "هل أنت متأكد أنك تريد حذف هذه الفئة؟"
+    }
   }
 }

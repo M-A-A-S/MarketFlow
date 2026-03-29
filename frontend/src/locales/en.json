@@ -5,5 +5,50 @@
     "products": "Products",
     "categories": "Categories",
     "brands": "Brands"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "loading_error": "Something went wrong. Please try again.",
+    "actions": "Actions"
+  },
+  "pages": {
+    "categories_page": {
+      "title": "Categories",
+      "description": "Manage and organize menu categories.",
+      "add_new_category": "Add New Category",
+      "edit_category": "Edit Category",
+      "empty_state": "No categories found.",
+
+      "nameEn": "Category Name (EN)",
+      "nameEn_placeholder": "Enter category name in English",
+      "nameEn_error": "Name (EN) is required",
+
+      "nameAr": "Category Name (AR)",
+      "nameAr_placeholder": "Enter category name in Arabic",
+      "nameAr_error": "Name (AR) is required",
+
+      "descriptionEn": "Description (EN)",
+      "descriptionEn_placeholder": "Enter description in English",
+
+      "descriptionAr": "Description (AR)",
+      "descriptionAr_placeholder": "Enter description in Arabic",
+
+      "image": "Category Image",
+      "delete_image_label": "Delete current image",
+
+      "delete_success": "Category deleted successfully!",
+      "delete_fail": "Failed to delete category. Try again.",
+
+      "add_success": "Category added successfully!",
+      "add_fail": "Failed to add category. Try again.",
+
+      "update_success": "Category updated successfully!",
+      "update_fail": "Failed to update category. Try again.",
+
+      "delete_category_title": "Delete Category",
+      "delete_category_message": "Are you sure you want to delete this category?"
+    }
   }
 }

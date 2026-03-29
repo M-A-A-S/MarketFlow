@@ -31,7 +31,7 @@ const TextArea = ({
         </label>
       )}
       <textarea
-        className={`w-full px-4 py-2 bg-gray-50 dark:bg-slate-800
+        className={`w-full px-4 py-2 my-2 bg-gray-50 dark:bg-slate-800
              border border-gray-200 dark:border-gray-700 
              rounded-xl focus:ring-2 focus:ring-orange-500 outline-none h-24 resize-none`}
         id={name}
