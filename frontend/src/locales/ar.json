@@ -1,0 +1,9 @@
+{
+  "sidebar": {
+    "dashboard": "لوحة التحكم",
+    "point_of_sale": "نظام نقاط البيع",
+    "products": "المنتجات",
+    "categories": "الفئات",
+    "brands": "العلامات التجارية"
+  }
+}

@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #app {
+    @apply w-full h-full m-0 p-0;
+  }
+
+  body {
+    @apply bg-gray-100 dark:bg-slate-900 text-gray-900 dark:text-gray-100;
+  }
+}

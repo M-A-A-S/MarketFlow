@@ -1,0 +1,9 @@
+{
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "point_of_sale": "Point Of Sale (POS)",
+    "products": "Products",
+    "categories": "Categories",
+    "brands": "Brands"
+  }
+}
