@@ -22,9 +22,9 @@ const Button = ({
           isCancelBtn
             ? ` bg-transparent text-black dark:text-white shadow-none
            hover:bg-gray-200 dark:hover:bg-gray-700`
-            : `bg-orange-600 
+            : `bg-purple-600 
         text-white  
-        hover:bg-orange-700 transition-colors 
+        hover:bg-purple-700 transition-colors 
         shadow-lg shadow-sm cursor-pointer`
         }  disabled:cursor-not-allowed ${className}`}
     >

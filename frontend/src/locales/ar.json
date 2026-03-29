@@ -6,6 +6,13 @@
     "categories": "الفئات",
     "brands": "العلامات التجارية"
   },
+  "imagePicker": {
+    "label": "صورة",
+    "urlButton": "رابط",
+    "uploadButton": "تحميل",
+    "urlPlaceholder": "https://example.com/image.jpg",
+    "selectFile": "اختر ملف"
+  },
   "common": {
     "save": "حفظ",
     "cancel": "إلغاء",

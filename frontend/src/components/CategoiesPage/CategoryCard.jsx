@@ -25,7 +25,7 @@ const CategoryCard = ({
 
       {/* Title */}
       <h3 className="flex items-center gap-2 font-semibold text-lg">
-        <span className="flex items-center p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-orange-500">
+        <span className="flex items-center p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-purple-500">
           <Layers size={18} />
         </span>
         {language === "en" ? category.nameEn : category.nameAr}

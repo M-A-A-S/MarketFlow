@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { Image, Upload } from "lucide-react";
+import { useLanguage } from "../../hooks/useLanguage";
 
-const ImagePicker = ({ imageUrl, imageFile, onChange, label = "Image" }) => {
+const ImagePicker = ({ imageUrl, imageFile, onChange, label = "" }) => {
+  const { translations } = useLanguage();
+
+  const { labelText, urlButton, uploadButton, urlPlaceholder, selectFile } =
+    translations.imagePicker;
+
   const [type, setType] = useState(imageUrl ? "url" : "file");
 
   useEffect(() => {
@@ -20,7 +26,9 @@ const ImagePicker = ({ imageUrl, imageFile, onChange, label = "Image" }) => {
 
   return (
     <div className="space-y-3">
-      <label className="block text-sm font-medium">{label}</label>
+      <label className="block text-sm font-medium">
+        {labelText || label || "Image"}
+      </label>
 
       {/* Toggle Buttons */}
       <div
@@ -44,7 +52,7 @@ const ImagePicker = ({ imageUrl, imageFile, onChange, label = "Image" }) => {
                  : "text-gray-400 hover:text-gray-600"
              }`}
         >
-          URL
+          {urlButton || "URL"}
         </button>
 
         <button
@@ -61,7 +69,7 @@ const ImagePicker = ({ imageUrl, imageFile, onChange, label = "Image" }) => {
                   : "text-gray-400 hover:text-gray-600"
               }`}
         >
-          Upload
+          {uploadButton || "Upload"}
         </button>
       </div>
 
@@ -71,7 +79,7 @@ const ImagePicker = ({ imageUrl, imageFile, onChange, label = "Image" }) => {
           {type === "url" && (
             <input
               type="text"
-              placeholder="https://example.com/image.jpg"
+              placeholder={urlPlaceholder || "https://example.com/image.jpg"}
               value={imageUrl}
               onChange={(e) => handleUrlChange(e.target.value)}
               className="w-full h-full bg-gray-50 dark:bg-slate-800
@@ -91,7 +99,7 @@ const ImagePicker = ({ imageUrl, imageFile, onChange, label = "Image" }) => {
           hover:bg-orange-100
           hover:border-orange-500"
             >
-              <Upload /> <span>Select File</span>
+              <Upload /> <span>{selectFile || "Select File"}</span>
               <input
                 type="file"
                 accept="image/*"

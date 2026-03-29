@@ -6,11 +6,11 @@ const ViewSwitcher = ({ view, setView }) => {
     <div
       className=" flex
         w-fit
-        my-4
+        m-1
         rounded-xl
-        bg-orange-200
+        bg-purple-200
         transition-colors
-        hover:bg-orange-300"
+        hover:bg-purple-300"
     >
       <Button
         onClick={() => setView("table")}
@@ -18,7 +18,7 @@ const ViewSwitcher = ({ view, setView }) => {
         className={`w-full
           h-full
           p-3
-          rounded-xl ${view === "table" ? "bg-orange-500" : "bg-transparent"}`}
+          rounded-xl ${view === "table" ? "bg-purple-500" : "bg-purple-300"}`}
       >
         <TextAlignJustify />
       </Button>
@@ -28,7 +28,7 @@ const ViewSwitcher = ({ view, setView }) => {
         className={`w-full
           h-full
           p-3
-          rounded-xl ${view === "card" ? "bg-orange-500 " : "bg-transparent"}`}
+          rounded-xl ${view === "card" ? "bg-purple-500 " : "bg-purple-300"}`}
       >
         <Grid2x2 />
       </Button>

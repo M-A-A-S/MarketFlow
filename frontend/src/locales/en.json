@@ -6,6 +6,13 @@
     "categories": "Categories",
     "brands": "Brands"
   },
+  "imagePicker": {
+    "label": "Image",
+    "urlButton": "URL",
+    "uploadButton": "Upload",
+    "urlPlaceholder": "https://example.com/image.jpg",
+    "selectFile": "Select File"
+  },
   "common": {
     "save": "Save",
     "cancel": "Cancel",
