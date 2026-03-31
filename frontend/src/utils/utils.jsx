@@ -40,3 +40,16 @@ export function showFail(serverCode = "", frontMessage = "") {
 
   toast.error(message);
 }
+
+export const formatMoney = (value, language = "en") => {
+  const number = Number(value || 0);
+
+  return new Intl.NumberFormat(language === "ar" ? "ar-EG" : "en-US", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2,
+  }).format(number);
+};
+
+export const formatNumber = (value) => {
+  return new Intl.NumberFormat("en-US").format(value);
+};

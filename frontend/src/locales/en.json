@@ -19,7 +19,45 @@
     "delete_label": "Delete",
     "loading_error": "Something went wrong. Please try again.",
     "actions": "Actions",
-    "back": "Back"
+    "back": "Back",
+    "search": "Search",
+    "search_placeholder": "Search..."
+  },
+  "product_sort_by": {
+    "newest": "Newest",
+    "oldest": "Oldest",
+    "price_asc": "Price: Low to High",
+    "price_desc": "Price: High to Low",
+    "name_en_asc": "Name (A-Z)",
+    "name_en_desc": "Name (Z-A)",
+    "name_ar_asc": "Name (A-Z Arabic)",
+    "name_ar_desc": "Name (Z-A Arabic)",
+    "description_en_asc": "Description (A-Z)",
+    "description_en_desc": "Description (Z-A)",
+    "description_ar_asc": "Description (A-Z Arabic)",
+    "description_ar_desc": "Description (Z-A Arabic)"
+  },
+  "product_filters": {
+    "category_id_label": "Category",
+    "category_id_placeholder": "Select a category",
+
+    "brand_id_label": "Brand",
+    "brand_id_placeholder": "Select a brand",
+
+    "is_active_label": "Active",
+    "is_active_placeholder": "Select status",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+
+    "min_price_label": "Minimum Price",
+    "min_price_placeholder": "Enter minimum price",
+
+    "max_price_label": "Maximum Price",
+    "max_price_placeholder": "Enter maximum price",
+
+    "sort_by_label": "Sort By",
+    "sort_by_placeholder": "Select sorting method"
   },
   "pages": {
     "categories_page": {

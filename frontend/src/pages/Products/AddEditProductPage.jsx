@@ -104,11 +104,11 @@ const AddEditProductPage = () => {
       temp.nameAr = nameAr_error;
     }
 
-    if (!formData.price || Number(price) < 0) {
+    if (formData.price === "" || Number(formData.price) < 0) {
       temp.price = invalid_price_error;
     }
 
-    if (!formData.stockQuantity || Number(formData.stockQuantity) < 0) {
+    if (formData.stockQuantity === "" || Number(formData.stockQuantity) < 0) {
       temp.stockQuantity = invalid_stockQuantity_error;
     }
 
@@ -187,9 +187,10 @@ const AddEditProductPage = () => {
         nameAr: product.nameAr || "",
         descriptionEn: product.descriptionEn || "",
         descriptionAr: product.descriptionAr || "",
-        price: product.price || "",
+        price: product.price !== null ? product.price : "",
         barcode: product.barcode || "",
-        stockQuantity: product.stockQuantity || "",
+        stockQuantity:
+          product.stockQuantity !== null ? product.stockQuantity : "",
         categoryId: product.categoryId || "",
         brandId: product.brandId || "",
         isActive: product.isActive ?? true,

@@ -56,7 +56,7 @@ const Pagination = ({
         text-white transition-colors rounded-xl 
         font-medium px-4 py-2 cursor-pointer
         focus:outline-none
-         ${currentPage === page ? "bg-orange-600 hover:bg-orange-700" : "bg-gray-500 hover:bg-gray-600"}`}
+         ${currentPage === page ? "bg-purple-600 hover:bg-purple-700" : "bg-gray-500 hover:bg-gray-600"}`}
           onClick={() => handlePageClick(page)}
         >
           {page}

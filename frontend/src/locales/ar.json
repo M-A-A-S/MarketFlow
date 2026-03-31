@@ -19,7 +19,45 @@
     "delete_label": "حذف",
     "loading_error": "حدث خطأ ما. الرجاء المحاولة مرة أخرى.",
     "actions": "الإجراءات",
-    "back": "رجوع"
+    "back": "رجوع",
+    "search": "بحث",
+    "search_placeholder": "بحث..."
+  },
+  "product_sort_by": {
+    "newest": "الأحدث",
+    "oldest": "الأقدم",
+    "price_asc": "السعر: من الأقل إلى الأعلى",
+    "price_desc": "السعر: من الأعلى إلى الأقل",
+    "name_en_asc": "الاسم (A-Z بالإنجليزية)",
+    "name_en_desc": "الاسم (Z-A بالإنجليزية)",
+    "name_ar_asc": "الاسم (أ-ي)",
+    "name_ar_desc": "الاسم (ي-أ)",
+    "description_en_asc": "الوصف (A-Z بالإنجليزية)",
+    "description_en_desc": "الوصف (Z-A بالإنجليزية)",
+    "description_ar_asc": "الوصف (أ-ي)",
+    "description_ar_desc": "الوصف (ي-أ)"
+  },
+  "product_filters": {
+    "category_id_label": "الفئة",
+    "category_id_placeholder": "اختر فئة",
+
+    "brand_id_label": "العلامة التجارية",
+    "brand_id_placeholder": "اختر علامة تجارية",
+
+    "is_active_label": "نشط",
+    "is_active_placeholder": "اختر الحالة",
+    "status": "الحالة",
+    "active": "نشط",
+    "inactive": "غير نشط",
+
+    "min_price_label": "السعر الأدنى",
+    "min_price_placeholder": "أدخل السعر الأدنى",
+
+    "max_price_label": "السعر الأعلى",
+    "max_price_placeholder": "أدخل السعر الأعلى",
+
+    "sort_by_label": "ترتيب حسب",
+    "sort_by_placeholder": "اختر طريقة الترتيب"
   },
   "pages": {
     "categories_page": {

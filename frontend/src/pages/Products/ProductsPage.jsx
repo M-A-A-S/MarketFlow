@@ -4,28 +4,43 @@ import PageHeader from "../../components/PageHeader";
 import Button from "../../components/UI/Button";
 import SpinnerLoader from "../../components/UI/SpinnerLoader";
 import ViewSwitcher from "../../components/UI/ViewSwitcher";
+import Pagination from "../../components/UI/Pagination";
 import ConfirmModal from "../../components/UI/ConfirmModal";
 import { Plus } from "lucide-react";
 import { read, update, create, remove } from "../../api/apiWrapper";
-// import AddEditProductModal from "./components/AddEditProductModal";
 import CardView from "./components/CardView";
 import TableView from "./components/TableView";
 import { showFail, showSuccess } from "../../utils/utils";
+import { useNavigate } from "react-router-dom";
+import { useDebounce } from "../../hooks/useDebounce";
+import { PPRDUCT_SORT_BY } from "../../utils/constants";
+import ProductFiltersContainer from "./components/ProductFiltersContainer/ProductFiltersContainer";
 
 const ProductsPage = () => {
   const [view, setView] = useState("card");
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [brands, setBrands] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
   const [errorCode, setErrorCode] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const navigate = useNavigate();
+
+  // Filters
+  const [searchText, setSearchText] = useState("");
+  const [sortBy, setSortBy] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [brandId, setBrandId] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [isActive, setIsActive] = useState("");
+  const [totalProducts, setTotalProducts] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const debouncedSearch = useDebounce(searchText, 500);
 
   const { translations } = useLanguage();
 
@@ -46,21 +61,58 @@ const ProductsPage = () => {
 
   const { cancel, delete_label, loading_error } = translations.common;
 
-  // 🔥 Fetch all needed data
-  const fetchData = async () => {
+  const geterateFetchProdcutsUrl = () => {
+    const queryParams = new URLSearchParams();
+
+    queryParams.append("pageNumber", currentPage);
+    queryParams.append("pageSize", pageSize);
+
+    if (debouncedSearch?.trim() !== "") {
+      queryParams.append("search", debouncedSearch.trim());
+    }
+
+    queryParams.append("sortBy", sortBy || PPRDUCT_SORT_BY.NEWEST);
+
+    if (categoryId !== "") {
+      queryParams.append("categoryId", parseInt(categoryId));
+    }
+
+    if (brandId !== "") {
+      queryParams.append("brandId", parseInt(brandId));
+    }
+
+    if (minPrice !== "") {
+      queryParams.append("minPrice", parseFloat(minPrice));
+    }
+
+    if (maxPrice !== "") {
+      queryParams.append("maxPrice", parseFloat(maxPrice));
+    }
+
+    if (brandId !== "") {
+      queryParams.append("brandId", parseInt(brandId));
+    }
+
+    if (isActive !== "") {
+      queryParams.append("isActive", isActive === "true");
+    }
+
+    return `products?${queryParams.toString()}`;
+  };
+
+  const fetchProducts = async () => {
     try {
       setLoading(true);
       setErrorCode("");
 
-      const [productsRes, categoriesRes, brandsRes] = await Promise.all([
-        read("products"),
-        read("categories"),
-        read("brands"),
-      ]);
+      const url = geterateFetchProdcutsUrl();
+      const result = await read(url);
 
-      setProducts(productsRes.data);
-      setCategories(categoriesRes.data);
-      setBrands(brandsRes.data);
+      setProducts(result?.data?.items);
+      setTotalProducts(result?.data?.total);
+
+      console.log("data", data);
+      console.log("total", data?.total);
     } catch (error) {
       setErrorCode(error?.code);
     } finally {
@@ -69,17 +121,83 @@ const ProductsPage = () => {
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchProducts();
+  }, [
+    currentPage,
+    pageSize,
+    sortBy,
+    categoryId,
+    brandId,
+    minPrice,
+    maxPrice,
+    isActive,
+    debouncedSearch,
+  ]);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const handleSearchInputChange = (e) => {
+    console.log("search -> ", e.target.value);
+    setSearchText(e.target.value);
+    setSortBy(PPRDUCT_SORT_BY.NEWEST);
+    setCurrentPage(1);
+  };
+
+  const handleSortByChange = (e) => {
+    console.log("Sorting Term -> ", e.target.value);
+    setSortBy(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleMinPriceChange = (e) => {
+    setMinPrice(e.target.value);
+    console.log("min price -> ", e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleMaxPriceChange = (e) => {
+    setMaxPrice(e.target.value);
+    console.log("max price -> ", e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleCategoryChange = (e) => {
+    setCategoryId(e.target.value);
+    console.log("category id -> ", e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleBrandChange = (e) => {
+    setBrandId(e.target.value);
+    console.log("brand id -> ", e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleIsActiveChange = (e) => {
+    setIsActive(e.target.value);
+    console.log("is active -> ", e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handleClearFilters = () => {
+    setSearchText("");
+    setSortBy("");
+    setCategoryId("");
+    setBrandId("");
+    setMinPrice("");
+    setMaxPrice("");
+    setIsActive("");
+    setCurrentPage(1);
+  };
 
   function handleAdd() {
-    setSelectedProduct(null);
-    setIsModalOpen(true);
+    navigate("/add-edit-product");
   }
 
   function handleEdit(product) {
-    setSelectedProduct(product);
-    setIsModalOpen(true);
+    navigate(`/add-edit-product/${product?.id}`);
   }
 
   function handleDelete(product) {
@@ -88,46 +206,9 @@ const ProductsPage = () => {
   }
 
   const closeModal = () => {
-    setIsModalOpen(false);
     setIsDeleteModalOpen(false);
     setSelectedProduct(null);
   };
-
-  function submitForm(payload) {
-    selectedProduct ? updateProduct(payload) : addProduct(payload);
-  }
-
-  async function addProduct(payload) {
-    try {
-      setActionLoading(true);
-      const result = await create("products", payload);
-      setProducts((prev) => [...prev, result.data]);
-      showSuccess(result?.code, add_success);
-    } catch (err) {
-      showFail(err?.code, add_fail);
-    } finally {
-      setActionLoading(false);
-      closeModal();
-    }
-  }
-
-  async function updateProduct(payload) {
-    try {
-      setActionLoading(true);
-      const result = await update(`products/${selectedProduct.id}`, payload);
-
-      setProducts((prev) =>
-        prev.map((p) => (p.id === result.data.id ? result.data : p)),
-      );
-
-      showSuccess(result?.code, update_success);
-    } catch (err) {
-      showFail(err?.code, update_fail);
-    } finally {
-      setActionLoading(false);
-      closeModal();
-    }
-  }
 
   async function deleteProduct() {
     try {
@@ -157,6 +238,24 @@ const ProductsPage = () => {
         }
       />
 
+      <ProductFiltersContainer
+        searchText={searchText}
+        handleSearchInputChange={handleSearchInputChange}
+        sortBy={sortBy}
+        handleSortByChange={handleSortByChange}
+        minPrice={minPrice}
+        handleMinPriceChange={handleMinPriceChange}
+        maxPrice={maxPrice}
+        handleMaxPriceChange={handleMaxPriceChange}
+        categoryId={categoryId}
+        handleCategoryChange={handleCategoryChange}
+        brandId={brandId}
+        handleBrandChange={handleBrandChange}
+        isActive={isActive}
+        handleIsActiveChange={handleIsActiveChange}
+        handleClearFilters={handleClearFilters}
+      />
+
       {loading ? (
         <div className="grid place-items-center h-[60vh]">
           <SpinnerLoader />
@@ -173,6 +272,13 @@ const ProductsPage = () => {
         <>
           <ViewSwitcher view={view} setView={setView} />
 
+          <Pagination
+            currentPage={currentPage}
+            totalItems={totalProducts}
+            onPageChange={handlePageChange}
+            pageSize={pageSize}
+          />
+
           {view === "card" && (
             <CardView
               products={products}
@@ -188,18 +294,15 @@ const ProductsPage = () => {
               handleDelete={handleDelete}
             />
           )}
+
+          <Pagination
+            currentPage={currentPage}
+            totalItems={totalProducts}
+            onPageChange={handlePageChange}
+            pageSize={pageSize}
+          />
         </>
       )}
-
-      {/* <AddEditProductModal
-        show={isModalOpen}
-        onClose={closeModal}
-        onConfirm={submitForm}
-        product={selectedProduct}
-        categories={categories}
-        brands={brands}
-        loading={actionLoading}
-      /> */}
 
       <ConfirmModal
         show={isDeleteModalOpen}

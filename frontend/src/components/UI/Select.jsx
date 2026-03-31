@@ -17,7 +17,7 @@ const Select = ({
   const { language } = useLanguage();
 
   return (
-    <div className={`flex flex-col gap-1 ${className}`}>
+    <div className={`flex flex-col gap-1  ${className}`}>
       {label && (
         <label
           htmlFor={name}
@@ -41,7 +41,8 @@ const Select = ({
           w-full cursor-pointer rounded-xl border-2 px-4 py-2 text-sm
           bg-gray-50 dark:bg-slate-800 
           border-gray-200 dark:border-gray-700
-          focus:outline-none focus:ring-2 focus:ring-orange-500
+          focus:outline-none focus:ring-2 focus:ring-purple-500
+          focus:border-purple-500
           disabled:cursor-not-allowed disabled:opacity-60
           ${
             errorMessage
