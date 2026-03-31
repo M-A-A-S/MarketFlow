@@ -2,11 +2,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import ToastContainer from "./components/UI/ToastContainer";
 import MainLayout from "./layouts/MainLayout";
-import DashboardPage from "./pages/DashboardPage";
-import PointOfSalePage from "./pages/PointOfSalePage";
-import CategoiesPage from "./pages/CategoiesPage";
-import BrandsPage from "./pages/BrandsPage";
-import ProductsPage from "./pages/ProductsPage";
+import DashboardPage from "./pages/Dashboard/DashboardPage";
+import PointOfSalePage from "./pages/PointOfSale/PointOfSalePage";
+import CategoiesPage from "./pages/Categoies/CategoiesPage";
+import BrandsPage from "./pages/Brands/BrandsPage";
+import ProductsPage from "./pages/Products/ProductsPage";
 
 const App = () => {
   return (

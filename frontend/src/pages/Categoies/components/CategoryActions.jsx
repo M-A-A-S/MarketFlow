@@ -1,5 +1,5 @@
 import { Pencil, Trash2 } from "lucide-react";
-import { safeCall } from "../../utils/utils";
+import { safeCall } from "../../../utils/utils";
 
 const CategoryActions = ({
   handleEditCategory,

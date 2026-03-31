@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { useLanguage } from "../hooks/useLanguage";
-import PageHeader from "../components/PageHeader";
-import Button from "../components/UI/Button";
-import SpinnerLoader from "../components/UI/SpinnerLoader";
-import ViewSwitcher from "../components/UI/ViewSwitcher";
-import ConfirmModal from "../components/UI/ConfirmModal";
+import { useLanguage } from "../../hooks/useLanguage";
+import PageHeader from "../../components/PageHeader";
+import Button from "../../components/UI/Button";
+import SpinnerLoader from "../../components/UI/SpinnerLoader";
+import ViewSwitcher from "../../components/UI/ViewSwitcher";
+import ConfirmModal from "../../components/UI/ConfirmModal";
 import { Plus } from "lucide-react";
-import { read, update, create, remove } from "../api/apiWrapper";
-import AddEditCategoryModal from "../components/CategoiesPage/AddEditCategoryModal";
-import CardView from "../components/CategoiesPage/CardView";
-import TableView from "../components/CategoiesPage/TableView";
-import { showFail, showSuccess } from "../utils/utils";
+import { read, update, create, remove } from "../../api/apiWrapper";
+import AddEditCategoryModal from "./components/AddEditCategoryModal";
+import CardView from "./components/CardView";
+import TableView from "./components/TableView";
+import { showFail, showSuccess } from "../../utils/utils";
 
 const CategoiesPage = () => {
   const [view, setView] = useState("card"); // 'table' or 'card'

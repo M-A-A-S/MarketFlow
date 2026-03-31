@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { safeCall } from "../../utils/utils";
-import { useLanguage } from "../../hooks/useLanguage";
-import AddEditModal from "../UI/AddEditModal";
-import Input from "../UI/Input";
-import TextArea from "../UI/TextArea";
-import ImagePicker from "../UI/ImagePicker";
+import { safeCall } from "../../../utils/utils";
+import { useLanguage } from "../../../hooks/useLanguage";
+import AddEditModal from "../../../components/UI/AddEditModal";
+import Input from "../../../components/UI/Input";
+import TextArea from "../../../components/UI/TextArea";
+import ImagePicker from "../../../components/UI/ImagePicker";
 
 const initialFormState = {
   nameEn: "",

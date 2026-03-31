@@ -16,7 +16,7 @@
   "common": {
     "save": "Save",
     "cancel": "Cancel",
-    "delete": "Delete",
+    "delete_label": "Delete",
     "loading_error": "Something went wrong. Please try again.",
     "actions": "Actions"
   },

@@ -1,7 +1,7 @@
 import { Pencil, Trash2 } from "lucide-react";
-import { useLanguage } from "../../hooks/useLanguage";
-import Table from "../UI/Table";
-import { safeCall } from "../../utils/utils";
+import { useLanguage } from "../../../hooks/useLanguage";
+import Table from "../../../components/UI/Table";
+import { safeCall } from "../../../utils/utils";
 import CategoryActions from "./CategoryActions";
 
 const TableView = ({

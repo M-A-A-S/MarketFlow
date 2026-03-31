@@ -1,6 +1,6 @@
 import { Layers, Pencil, Trash2 } from "lucide-react";
-import { useLanguage } from "../../hooks/useLanguage";
-import { safeCall } from "../../utils/utils";
+import { useLanguage } from "../../../hooks/useLanguage";
+import { safeCall } from "../../../utils/utils";
 import CategoryActions from "./CategoryActions";
 
 const CategoryCard = ({
