@@ -18,7 +18,8 @@
     "cancel": "إلغاء",
     "delete_label": "حذف",
     "loading_error": "حدث خطأ ما. الرجاء المحاولة مرة أخرى.",
-    "actions": "الإجراءات"
+    "actions": "الإجراءات",
+    "back": "رجوع"
   },
   "pages": {
     "categories_page": {
@@ -95,6 +96,64 @@
 
       "delete_brand_title": "حذف العلامة",
       "delete_brand_message": "هل أنت متأكد أنك تريد حذف هذه العلامة؟"
+    },
+    "products_page": {
+      "title": "المنتجات",
+      "description": "إدارة وتنظيم المنتجات.",
+      "add_new_product": "إضافة منتج",
+      "edit_product": "تعديل المنتج",
+      "empty_state": "لا توجد منتجات.",
+
+      "nameEn": "اسم المنتج (إنجليزي)",
+      "nameEn_placeholder": "أدخل اسم المنتج بالإنجليزية",
+      "nameEn_error": "الاسم (إنجليزي) مطلوب",
+
+      "nameAr": "اسم المنتج (عربي)",
+      "nameAr_placeholder": "أدخل اسم المنتج بالعربية",
+      "nameAr_error": "الاسم (عربي) مطلوب",
+
+      "descriptionEn": "الوصف (إنجليزي)",
+      "descriptionEn_placeholder": "أدخل الوصف بالإنجليزية",
+
+      "descriptionAr": "الوصف (عربي)",
+      "descriptionAr_placeholder": "أدخل الوصف بالعربية",
+
+      "price": "السعر",
+      "price_placeholder": "أدخل سعر المنتج",
+      "price_error": "السعر مطلوب",
+      "invalid_price_error": "يجب أن يكون السعر رقمًا صالحًا أكبر من أو يساوي 0",
+
+      "barcode": "الباركود",
+      "barcode_placeholder": "أدخل الباركود",
+
+      "stockQuantity": "الكمية",
+      "stockQuantity_placeholder": "أدخل الكمية",
+      "stockQuantity_error": "الكمية مطلوبة",
+      "invalid_stockQuantity_error": "يجب أن تكون الكمية عددًا صحيحًا صالحًا أكبر من أو يساوي 0",
+
+      "category": "التصنيف",
+      "category_placeholder": "اختر التصنيف",
+      "category_error": "التصنيف مطلوب",
+
+      "brand": "العلامة التجارية",
+      "brand_placeholder": "اختر العلامة التجارية",
+
+      "image": "صورة المنتج",
+      "delete_image_label": "حذف الصورة الحالية",
+
+      "isActive": "نشط",
+
+      "delete_success": "تم حذف المنتج بنجاح!",
+      "delete_fail": "فشل حذف المنتج. حاول مرة أخرى.",
+
+      "add_success": "تمت إضافة المنتج بنجاح!",
+      "add_fail": "فشل إضافة المنتج. حاول مرة أخرى.",
+
+      "update_success": "تم تحديث المنتج بنجاح!",
+      "update_fail": "فشل تحديث المنتج. حاول مرة أخرى.",
+
+      "delete_product_title": "حذف المنتج",
+      "delete_product_message": "هل أنت متأكد أنك تريد حذف هذا المنتج؟"
     }
   }
 }

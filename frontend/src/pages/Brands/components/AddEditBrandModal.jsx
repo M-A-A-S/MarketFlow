@@ -87,7 +87,9 @@ const AddEditBrandModal = ({ show, onClose, onConfirm, brand, loading }) => {
   };
 
   function handleSubmit() {
-    if (!validateFormData()) return;
+    if (!validateFormData()) {
+      return;
+    }
 
     const payload = new FormData();
 

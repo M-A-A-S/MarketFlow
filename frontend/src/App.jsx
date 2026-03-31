@@ -7,6 +7,7 @@ import PointOfSalePage from "./pages/PointOfSale/PointOfSalePage";
 import CategoiesPage from "./pages/Categoies/CategoiesPage";
 import BrandsPage from "./pages/Brands/BrandsPage";
 import ProductsPage from "./pages/Products/ProductsPage";
+import AddEditProductPage from "./pages/Products/AddEditProductPage";
 
 const App = () => {
   return (
@@ -21,6 +22,11 @@ const App = () => {
             <Route path="/categories" element={<CategoiesPage />} />
             <Route path="/brands" element={<BrandsPage />} />
             <Route path="/products" element={<ProductsPage />} />
+            <Route path="/add-edit-product" element={<AddEditProductPage />} />
+            <Route
+              path="/add-edit-product/:id"
+              element={<AddEditProductPage />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>

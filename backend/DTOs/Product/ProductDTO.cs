@@ -19,10 +19,10 @@ namespace MarketFlow.DTOs.Product
         public bool IsActive { get; set; } = true;
 
         public int CategoryId { get; set; }
-        public CategoryDTO Category { get; set; }
+        public CategoryDTO? Category { get; set; }
 
         public int? BrandId { get; set; }
-        public BrandDTO Brand { get; set; }
+        public BrandDTO? Brand { get; set; }
         public bool DeleteImage { get; set; } = false;
     }
 }
