@@ -156,7 +156,7 @@ namespace MarketFlow.Business.Services
             var entity = existingResult.Data;
 
             var imageResult = await _imageProcessor.ProcessImageAsync(
-                dto.ImageFile, dto.ImageUrl, null, _folderName);
+                dto.ImageFile, dto.ImageUrl, entity.ImageUrl, _folderName);
 
             if (!imageResult.IsSuccess)
             {

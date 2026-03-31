@@ -56,6 +56,45 @@
 
       "delete_category_title": "Delete Category",
       "delete_category_message": "Are you sure you want to delete this category?"
+    },
+    "brands_page": {
+      "title": "Brands",
+      "description": "Manage and organize brands.",
+      "add_new_brand": "Add New Brand",
+      "edit_brand": "Edit Brand",
+      "empty_state": "No brands found.",
+
+      "nameEn": "Brand Name (EN)",
+      "nameEn_placeholder": "Enter brand name in English",
+      "nameEn_error": "Name (EN) is required",
+
+      "nameAr": "Brand Name (AR)",
+      "nameAr_placeholder": "Enter brand name in Arabic",
+      "nameAr_error": "Name (AR) is required",
+
+      "descriptionEn": "Description (EN)",
+      "descriptionEn_placeholder": "Enter description in English",
+
+      "descriptionAr": "Description (AR)",
+      "descriptionAr_placeholder": "Enter description in Arabic",
+
+      "image": "Brand Image",
+      "delete_image_label": "Delete current image",
+
+      "websiteUrl": "Website URL",
+      "websiteUrl_placeholder": "Enter website URL",
+
+      "delete_success": "Brand deleted successfully!",
+      "delete_fail": "Failed to delete brand. Try again.",
+
+      "add_success": "Brand added successfully!",
+      "add_fail": "Failed to add brand. Try again.",
+
+      "update_success": "Brand updated successfully!",
+      "update_fail": "Failed to update brand. Try again.",
+
+      "delete_brand_title": "Delete Brand",
+      "delete_brand_message": "Are you sure you want to delete this brand?"
     }
   }
 }

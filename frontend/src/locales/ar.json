@@ -56,6 +56,45 @@
 
       "delete_category_title": "حذف الفئة",
       "delete_category_message": "هل أنت متأكد أنك تريد حذف هذه الفئة؟"
+    },
+    "brands_page": {
+      "title": "العلامات التجارية",
+      "description": "إدارة وتنظيم العلامات التجارية.",
+      "add_new_brand": "إضافة علامة تجارية",
+      "edit_brand": "تعديل العلامة التجارية",
+      "empty_state": "لا توجد علامات تجارية.",
+
+      "nameEn": "اسم العلامة (إنجليزي)",
+      "nameEn_placeholder": "أدخل الاسم بالإنجليزية",
+      "nameEn_error": "الاسم (إنجليزي) مطلوب",
+
+      "nameAr": "اسم العلامة (عربي)",
+      "nameAr_placeholder": "أدخل الاسم بالعربية",
+      "nameAr_error": "الاسم (عربي) مطلوب",
+
+      "descriptionEn": "الوصف (إنجليزي)",
+      "descriptionEn_placeholder": "أدخل الوصف بالإنجليزية",
+
+      "descriptionAr": "الوصف (عربي)",
+      "descriptionAr_placeholder": "أدخل الوصف بالعربية",
+
+      "image": "صورة العلامة",
+      "delete_image_label": "حذف الصورة الحالية",
+
+      "websiteUrl": "رابط الموقع",
+      "websiteUrl_placeholder": "أدخل رابط الموقع",
+
+      "delete_success": "تم حذف العلامة بنجاح!",
+      "delete_fail": "فشل حذف العلامة. حاول مرة أخرى.",
+
+      "add_success": "تمت إضافة العلامة بنجاح!",
+      "add_fail": "فشل إضافة العلامة. حاول مرة أخرى.",
+
+      "update_success": "تم تحديث العلامة بنجاح!",
+      "update_fail": "فشل تحديث العلامة. حاول مرة أخرى.",
+
+      "delete_brand_title": "حذف العلامة",
+      "delete_brand_message": "هل أنت متأكد أنك تريد حذف هذه العلامة؟"
     }
   }
 }
