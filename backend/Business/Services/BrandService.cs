@@ -2,6 +2,7 @@
 using MarketFlow.DataAccess.Interfaces;
 using MarketFlow.DTOs.Brand;
 using MarketFlow.DTOs.Category;
+using MarketFlow.DTOs.Supplier;
 using MarketFlow.Utilities;
 using MarketFlow.Utilities.Extensions;
 using MarketFlow.Utilities.ResultCodes;
@@ -45,9 +46,13 @@ namespace MarketFlow.Business.Services
 
             var addResult = await _repo.AddAndSaveAsync(entity);
 
-            if (!addResult.IsSuccess && dto.ImageFile != null)
+            if (!addResult.IsSuccess)
             {
-                await _imageProcessor.DeleteLocalFile(entity.ImageUrl, _folderName);
+                if  (dto.ImageFile != null)
+                {
+                    await _imageProcessor.DeleteLocalFile(entity.ImageUrl, _folderName);
+                }
+                return Result<BrandDTO>.Failure();
             }
 
             var result = addResult.Data?.ToDTO();
@@ -128,6 +133,11 @@ namespace MarketFlow.Business.Services
             entity.ImageUrl = imageResult.Data;
 
             var updateResult = await _repo.UpdateAndSaveAsync(existingResult.Data);
+
+            if (!updateResult.IsSuccess)
+            {
+                return Result<BrandDTO>.Failure(imageResult.Code, 500);
+            }
 
             var result = updateResult.Data?.ToDTO();
             if (result != null)
