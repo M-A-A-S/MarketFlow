@@ -193,11 +193,11 @@ const ProductsPage = () => {
   };
 
   function handleAdd() {
-    navigate("/add-edit-product");
+    navigate("/add-product");
   }
 
   function handleEdit(product) {
-    navigate(`/add-edit-product/${product?.id}`);
+    navigate(`/edit-product/${product?.id}`);
   }
 
   function handleDelete(product) {

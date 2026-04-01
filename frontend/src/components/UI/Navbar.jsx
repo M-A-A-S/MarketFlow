@@ -9,42 +9,29 @@ const Navbar = () => {
   const location = useLocation();
 
   // Map paths to translation keys
-  const pageMap = {
-    "/dashboard": "dashboard",
+  const pageMap = [
+    { path: "/dashboard", key: "dashboard" },
+    { path: "/point-of-sale", key: "point_of_sale" },
 
-    // Menu Module
-    "/menu-items": "menu_items",
-    "/menu-categories": "categories",
-    "/extras-groups": "extras_groups",
-    "/extras": "extras",
-    "/sizes": "sizes",
+    // Products Module
+    { path: "/categories", key: "categories" },
+    { path: "/brands", key: "brands" },
+    { path: "/products", key: "products" },
+    { path: "/add-product", key: "add_product" },
+    { path: "/edit-product", key: "edit_product" }, // dynamic path
 
-    // Inventory Module
-    "/ingredients": "ingredients",
-    "/suppliers": "suppliers",
-    "/inventory-transactions": "inventory_transactions",
-    "/inventory-batches": "inventory_batches",
+    // Purchases / Suppliers
+    { path: "/suppliers", key: "suppliers" },
+    { path: "/add-supplier", key: "add_supplier" },
+    { path: "/edit-supplier", key: "edit_supplier" }, // dynamic path
+  ];
 
-    // HR Module
-    "/hr/employees": "employees",
-    "/hr/shift-types": "shift_types",
-    "/hr/leave-types": "leave_types",
-    "/hr/work-schedules": "work_schedules",
-    "/hr/attendances": "attendances",
-    // "/hr/leaves": "leaves",
-    "/hr/leave-requests": "leave_requests",
-    "/hr/leave-approvals": "leave_approvals",
+  // Find the first matching path
+  const pageItem = pageMap.find((item) =>
+    location.pathname.startsWith(item.path),
+  ) || { key: "dashboard" };
 
-    "/hr/payroll": "payroll",
-
-    "/point-of-sale": "point_of_sale",
-    "/orders": "orders",
-    "/analytics": "analytics",
-    "/settings": "settings",
-  };
-
-  const pageKey = pageMap[location.pathname] || "dashboard";
-  const currentTitle = translations.sidebar[pageKey];
+  const currentTitle = translations.sidebar[pageItem.key];
 
   return (
     <header

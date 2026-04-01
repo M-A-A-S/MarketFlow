@@ -4,6 +4,7 @@ import {
   UtensilsCrossed,
   Layers,
   Tags,
+  UserRound,
 } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -17,38 +18,52 @@ const menus = [
     key: "dashboard",
     path: "/",
     icon: <LayoutDashboard />,
-    roles: ["administrator", "manager"],
+    roles: ["admin", "manager"],
   },
 
   {
     key: "point_of_sale",
     path: "/point-of-sale",
     icon: <UtensilsCrossed />,
-    roles: ["administrator", "manager", "cashier"],
+    roles: ["admin", "manager", "cashier"],
   },
 
   {
     key: "products",
     icon: <Package />,
-    roles: ["administrator", "manager"],
+    roles: ["admin", "manager"],
     children: [
       {
         key: "categories",
         path: "/categories",
         icon: <Layers />,
-        roles: ["administrator", "manager"],
+        roles: ["admin", "manager"],
       },
       {
         key: "brands",
         path: "/brands",
         icon: <Tags />,
-        roles: ["administrator", "manager"],
+        roles: ["admin", "manager"],
       },
       {
         key: "products",
         path: "/products",
         icon: <Package />,
-        roles: ["administrator", "manager"],
+        roles: ["admin", "manager"],
+      },
+    ],
+  },
+
+  {
+    key: "purchases",
+    icon: <Package />,
+    roles: ["admin", "manager"],
+    children: [
+      {
+        key: "suppliers",
+        path: "/suppliers",
+        icon: <UserRound />,
+        roles: ["admin", "manager"],
       },
     ],
   },

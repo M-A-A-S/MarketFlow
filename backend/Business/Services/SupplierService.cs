@@ -107,7 +107,7 @@ namespace MarketFlow.Business.Services
         #region Update
         public async Task<Result<SupplierDTO>> UpdateAsync(int id, SupplierDTO dto)
         {
-            var existingResult = await _repo.FindByAsync(c => c.Id == id);
+            var existingResult = await _repo.FindByAsync(c => c.Id == id, include: q => q.Include(s => s.Person));
             if (!existingResult.IsSuccess || existingResult.Data == null)
             {
                 return Result<SupplierDTO>.Failure(
@@ -119,7 +119,7 @@ namespace MarketFlow.Business.Services
             var entity = existingResult.Data;
 
             var imageResult = await _imageProcessor.ProcessImageAsync(
-                dto.Person.ImageFile, dto.Person.ImageUrl, entity.Person.ImageUrl, _folderName);
+                dto?.Person?.ImageFile, dto?.Person?.ImageUrl, entity?.Person?.ImageUrl, _folderName);
 
             if (!imageResult.IsSuccess)
             {
@@ -134,7 +134,7 @@ namespace MarketFlow.Business.Services
 
             if (!updateResult.IsSuccess)
             {
-                return Result<SupplierDTO>.Failure(imageResult.Code, 500);
+                return Result<SupplierDTO>.Failure(updateResult.Code, 500);
             }
 
             var result = updateResult.Data?.ToDTO();

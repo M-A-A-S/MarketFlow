@@ -27,3 +27,10 @@ export const PPRDUCT_SORT_BY_OPTIONS = [
   { value: PPRDUCT_SORT_BY.DESCRIPTION_AR_ASC, label: "description_ar_asc" },
   { value: PPRDUCT_SORT_BY.DESCRIPTION_AR_DESC, label: "description_ar_desc" },
 ];
+
+export const GENDERS = [
+  { value: 1, label: "unknown" },
+  { value: 2, label: "male" },
+  { value: 3, label: "female" },
+  { value: 4, label: "other" },
+];

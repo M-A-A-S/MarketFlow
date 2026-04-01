@@ -84,10 +84,6 @@ const CategoiesPage = () => {
     setIsAddEditCategoryModalOpen(false);
     setIsDeleteCategoryConfirmModalOpen(false);
     setSelectedCategory(null);
-    // toast.success("Success! Operation completed.");
-    // toast.error("Error! Something went wrong.");
-    // toast.warning("Warning! Check this out.");
-    // toast.default("Default info message.");
   };
 
   function addEditCategory(payload) {

@@ -3,8 +3,16 @@
     "dashboard": "لوحة التحكم",
     "point_of_sale": "نظام نقاط البيع",
     "products": "المنتجات",
+    "add_product": "إضافة منتج",
+    "edit_product": "تعديل المنتج",
     "categories": "الفئات",
-    "brands": "العلامات التجارية"
+    "brands": "العلامات التجارية",
+    "suppliers": "الموردون",
+    "add_supplier": "إضافة مورد",
+    "edit_supplier": "تعديل المورد",
+    "purchases": "المشتريات",
+    "sales": "المبيعات",
+    "reports": "التقارير"
   },
   "imagePicker": {
     "label": "صورة",
@@ -192,6 +200,50 @@
 
       "delete_product_title": "حذف المنتج",
       "delete_product_message": "هل أنت متأكد أنك تريد حذف هذا المنتج؟"
+    },
+    "suppliers_page": {
+      "title": "الموردون",
+      "description": "إدارة وتنظيم الموردين.",
+      "add_new_supplier": "إضافة مورد جديد",
+      "edit_supplier": "تعديل المورد",
+      "empty_state": "لا يوجد موردون.",
+
+      "firstName": "الاسم الأول",
+      "firstName_placeholder": "أدخل الاسم الأول",
+      "firstName_error": "الاسم الأول مطلوب",
+
+      "lastName": "اسم العائلة",
+      "lastName_placeholder": "أدخل اسم العائلة",
+      "lastName_error": "اسم العائلة مطلوب",
+
+      "phone": "رقم الهاتف",
+      "phone_placeholder": "أدخل رقم الهاتف",
+      "phone_error": "رقم الهاتف مطلوب",
+      "invalid_phone_error": "رقم الهاتف غير صالح، يرجى إدخال رقم سوداني صحيح",
+
+      "gender": "الجنس",
+      "dateOfBirth": "تاريخ الميلاد",
+
+      "image": "الصورة الشخصية",
+      "delete_image_label": "حذف الصورة الحالية",
+
+      "delete_success": "تم حذف المورد بنجاح!",
+      "delete_fail": "فشل في حذف المورد. حاول مرة أخرى.",
+
+      "add_success": "تمت إضافة المورد بنجاح!",
+      "add_fail": "فشل في إضافة المورد. حاول مرة أخرى.",
+
+      "update_success": "تم تحديث المورد بنجاح!",
+      "update_fail": "فشل في تحديث المورد. حاول مرة أخرى.",
+
+      "delete_supplier_title": "حذف المورد",
+      "delete_supplier_message": "هل أنت متأكد أنك تريد حذف هذا المورد؟"
     }
+  },
+  "genders": {
+    "unknown": "غير معروف",
+    "male": "ذكر",
+    "female": "أنثى",
+    "other": "آخر"
   }
 }

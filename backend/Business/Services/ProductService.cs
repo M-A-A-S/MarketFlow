@@ -176,7 +176,7 @@ namespace MarketFlow.Business.Services
 
             if (!updateResult.IsSuccess)
             {
-                return Result<ProductDTO>.Failure(imageResult.Code, 500);
+                return Result<ProductDTO>.Failure(updateResult.Code, 500);
             }
 
             var result = updateResult.Data?.ToDTO();
