@@ -117,17 +117,20 @@ const SuppliersPage = () => {
         </div>
       ) : (
         <>
-          <ViewSwitcher view={view} setView={setView} />
+          <div className="my-5">
+            <ViewSwitcher view={view} setView={setView} />
+          </div>
+
           {view == "card" && (
             <CardView
-              supplier={suppliers}
+              suppliers={suppliers}
               handleEditSupplier={handleEditSupplier}
               handleDeleteSupplier={handleDeleteSupplier}
             />
           )}
           {view == "table" && (
             <TableView
-              supplier={suppliers}
+              suppliers={suppliers}
               handleEditSupplier={handleEditSupplier}
               handleDeleteSupplier={handleDeleteSupplier}
             />

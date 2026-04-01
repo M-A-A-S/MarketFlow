@@ -53,3 +53,13 @@ export const formatMoney = (value, language = "en") => {
 export const formatNumber = (value) => {
   return new Intl.NumberFormat("en-US").format(value);
 };
+
+export const formatDate = (isoString, language = "en") => {
+  if (!isoString) return "";
+  const d = new Date(isoString);
+  return d.toLocaleDateString(language === "en" ? "en-US" : "ar-EG", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+};

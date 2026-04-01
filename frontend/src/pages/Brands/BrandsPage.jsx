@@ -149,7 +149,9 @@ const BrandsPage = () => {
         <div>{empty_state}</div>
       ) : (
         <>
-          <ViewSwitcher view={view} setView={setView} />
+          <div className="my-5">
+            <ViewSwitcher view={view} setView={setView} />
+          </div>
 
           {view === "card" && (
             <CardView

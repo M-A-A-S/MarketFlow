@@ -4,7 +4,7 @@ import {
   UtensilsCrossed,
   Layers,
   Tags,
-  UserRound,
+  UsersRound,
 } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -62,7 +62,7 @@ const menus = [
       {
         key: "suppliers",
         path: "/suppliers",
-        icon: <UserRound />,
+        icon: <UsersRound />,
         roles: ["admin", "manager"],
       },
     ],

@@ -270,7 +270,9 @@ const ProductsPage = () => {
         </div>
       ) : (
         <>
-          <ViewSwitcher view={view} setView={setView} />
+          <div className="my-2">
+            <ViewSwitcher view={view} setView={setView} />
+          </div>
 
           <Pagination
             currentPage={currentPage}

@@ -174,7 +174,9 @@ const CategoiesPage = () => {
         </div>
       ) : (
         <>
-          <ViewSwitcher view={view} setView={setView} />
+          <div className="my-5">
+            <ViewSwitcher view={view} setView={setView} />
+          </div>
           {view == "card" && (
             <CardView
               categories={categories}
