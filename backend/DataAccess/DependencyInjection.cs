@@ -12,6 +12,9 @@ namespace MarketFlow.DataAccess
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<ISupplierRepository, SupplierRepository>();
+            services.AddScoped<IPurchaseInvoiceRepository, PurchaseInvoiceRepository>();
+            services.AddScoped<IPurchaseInvoiceItemRepository, PurchaseInvoiceItemRepository>();
+            services.AddScoped<IPurchasePaymentRepository, PurchasePaymentRepository>();
 
             return services;
         }
