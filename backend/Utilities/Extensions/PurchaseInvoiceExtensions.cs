@@ -50,7 +50,9 @@ namespace MarketFlow.Utilities.Extensions
                 TotalBeforeDiscount = DTO.TotalBeforeDiscount,
                 Discount = DTO.Discount,
                 Tax = DTO.Tax,
-                NetTotal = DTO.NetTotal
+                NetTotal = DTO.NetTotal,
+                Items = DTO.Items?.Select(i => i.ToEntity()).ToList(),
+                Payments = DTO.Payments?.Select(p => p.ToEntity()).ToList(),
             };
         }
 

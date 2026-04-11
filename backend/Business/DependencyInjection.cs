@@ -14,6 +14,8 @@ namespace MarketFlow.Business
             services.AddScoped<IBrandService, BrandService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ISupplierService, SupplierService>();
+            services.AddScoped<IPurchaseInvoiceService, PurchaseInvoiceService>();
+            services.AddScoped<IPurchasePaymentService, PurchasePaymentService>();
 
             return services;
         }
