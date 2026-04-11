@@ -144,6 +144,24 @@ namespace MarketFlow.Business.Services
 
         }
 
+        public async Task<Result<IEnumerable<ProductDropdownDTO>>> GetDropdownAsync(ProductDropdownRequestDTO dto)
+        {
+            var result = await _repo.GetDropdownAsync(dto.Search);
+
+            if (!result.IsSuccess || result.Data == null || !result.Data.Any())
+            {
+                return Result<IEnumerable<ProductDropdownDTO>>
+                    .Failure(ResultCodes.ProductNotFound, 404);
+            }
+
+            var mapped = result.Data.Select(p => new ProductDropdownDTO
+            {
+                NameEn = p.NameEn,
+                NameAr = p.NameAr
+            }).ToList();
+
+            return Result<IEnumerable<ProductDropdownDTO>>.Success(mapped);
+        }
         #endregion
 
         #region Update

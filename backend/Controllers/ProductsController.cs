@@ -28,6 +28,12 @@ namespace MarketFlow.Controllers
             return FromResult(await _service.GetByIdAsync(id));
         }
 
+        [HttpGet("dropdown")]
+        public async Task<IActionResult> GetDropdown([FromQuery] ProductDropdownRequestDTO dto)
+        {
+            return FromResult(await _service.GetDropdownAsync(dto));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] ProductDTO DTO)
         {

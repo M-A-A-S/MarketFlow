@@ -12,5 +12,6 @@ namespace MarketFlow.Business.Interfaces
         Task<Result<ProductDTO>> GetByIdAsync(int id);
         Task<Result<IEnumerable<ProductDTO>>> GetAllAsync();
         Task<Result<PagedResult<ProductDTO>>> GetFilteredAsync(ProductFilterDTO filter);
+        Task<Result<IEnumerable<ProductDropdownDTO>>> GetDropdownAsync(ProductDropdownRequestDTO request);
     }
 }
