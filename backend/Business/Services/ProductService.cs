@@ -156,8 +156,10 @@ namespace MarketFlow.Business.Services
 
             var mapped = result.Data.Select(p => new ProductDropdownDTO
             {
+                Id = p.Id,
                 NameEn = p.NameEn,
-                NameAr = p.NameAr
+                NameAr = p.NameAr,
+                Price = p.Price,
             }).ToList();
 
             return Result<IEnumerable<ProductDropdownDTO>>.Success(mapped);

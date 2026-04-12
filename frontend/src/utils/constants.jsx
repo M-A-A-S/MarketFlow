@@ -34,3 +34,15 @@ export const GENDERS = [
   { value: 3, label: "female" },
   { value: 4, label: "other" },
 ];
+
+export const PAYMENT_METHODS = [
+  { value: 1, label: "cash" },
+  { value: 2, label: "bankak" },
+  { value: 3, label: "fawry" },
+];
+
+export const PAYMENT_METHOD = {
+  CASH: 1,
+  BANKAK: 2,
+  FAWRY: 3,
+};

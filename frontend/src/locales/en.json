@@ -11,6 +11,8 @@
     "add_supplier": "Add Supplier",
     "edit_supplier": "Edit Supplier",
     "purchases": "Purchases",
+    "add_purchase_invoice": "Add Purchase Invoice",
+    "edit_purchase_invoice": "Edit Purchase Invoice",
     "sales": "Sales",
     "reports": "Reports"
   },
@@ -29,7 +31,9 @@
     "actions": "Actions",
     "back": "Back",
     "search": "Search",
-    "search_placeholder": "Search..."
+    "search_placeholder": "Search...",
+    "add": "Add",
+    "edit": "Edit"
   },
   "product_sort_by": {
     "newest": "Newest",
@@ -238,6 +242,58 @@
 
       "delete_supplier_title": "Delete Supplier",
       "delete_supplier_message": "Are you sure you want to delete this supplier?"
+    },
+    "purchase_invoice_page": {
+      "add_title": "Create Purchase Invoice",
+      "add_desc": "Add products, configure pricing, and record supplier payments",
+      "edit_title": "Edit Purchase Invoice",
+      "edit_desc": "Modify products, pricing, and payments for this invoice",
+      "add_new": "Add New Purchase Invoice",
+      "edit": "Edit Purchase Invoice",
+
+      "btn_cancel": "Cancel",
+      "btn_save": "Save Invoice",
+      "btn_finalize": "Finalize & Save",
+      "btn_add": "Add",
+
+      "info_title": "Invoice Information",
+      "invoice_no": "Invoice Number",
+      "invoice_date": "Invoice Date",
+      "supplier": "Supplier",
+      "select_supplier": "Select Supplier",
+
+      "product_title": "Add Products",
+      "product_search": "Search by product name or SKU...",
+      "product_empty": "No items added yet. Search for products above to get started.",
+      "sku": "SKU",
+      "in_stock": "In Stock",
+
+      "table_product": "Product",
+      "table_qty": "Qty",
+      "table_price": "Unit Price",
+      "table_total": "Total",
+      "table_action": "Action",
+
+      "payment_title": "Record Payments",
+      "payment_method": "Payment Method",
+      "payment_amount": "Amount",
+      "payment_ref": "Ref / Check #",
+      "payment_notes": "Notes",
+
+      "summary_title": "Pricing Summary",
+      "subtotal": "Subtotal",
+      "discount": "Discount (%)",
+      "discount_amount": "Discount Amount",
+      "tax": "Tax (%)",
+      "tax_amount": "Tax Amount",
+      "net_total": "Net Total",
+
+      "balance_title": "Payment Balance",
+      "total_paid": "Total Paid",
+      "remaining": "Remaining Balance",
+      "unpaid_warning": "This invoice has an unpaid balance of",
+
+      "success": "Purchase Invoice Created Successfully!"
     }
   },
   "genders": {
@@ -245,5 +301,10 @@
     "male": "Male",
     "female": "Female",
     "other": "Other"
+  },
+  "payment_methods": {
+    "cash": "Cash",
+    "bankak": "Bankak",
+    "fawry": "Fawry"
   }
 }

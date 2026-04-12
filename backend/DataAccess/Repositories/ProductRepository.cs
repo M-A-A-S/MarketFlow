@@ -33,7 +33,8 @@ namespace MarketFlow.DataAccess.Repositories
                     {
                         Id = p.Id,
                         NameEn = p.NameEn,
-                        NameAr = p.NameAr
+                        NameAr = p.NameAr,
+                        Price = p.Price,
                     })
                     .Take(20)
                     .ToListAsync();

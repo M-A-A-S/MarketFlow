@@ -13,6 +13,8 @@ const Input = ({
   maxLength = null,
   errorMessage = "",
   showLabel = false,
+  min,
+  max,
   ...props
 }) => {
   const handleChange = safeCall(onChange);
@@ -42,6 +44,8 @@ const Input = ({
         required={required}
         disabled={disabled}
         maxLength={maxLength}
+        max={max}
+        min={min}
         {...props}
       />
       {errorMessage && <small className="text-red-500">{errorMessage}</small>}

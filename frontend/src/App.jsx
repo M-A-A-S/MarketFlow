@@ -10,6 +10,8 @@ import ProductsPage from "./pages/Products/ProductsPage";
 import AddEditProductPage from "./pages/Products/AddEditProductPage";
 import SuppliersPage from "./pages/Suppliers/SuppliersPage";
 import AddEditSupplierPage from "./pages/Suppliers/AddEditSupplierPage";
+import PurchaseInvoicesPage from "./pages/PurchaseInvoices/PurchaseInvoicesPage";
+import AddEditPurchaseInvoicePage from "./pages/PurchaseInvoices/AddEditPurchaseInvoice/AddEditPurchaseInvoicePage";
 
 const App = () => {
   return (
@@ -32,6 +34,19 @@ const App = () => {
             <Route
               path="/edit-supplier/:id"
               element={<AddEditSupplierPage />}
+            />
+
+            <Route
+              path="/purchase-invoices"
+              element={<PurchaseInvoicesPage />}
+            />
+            <Route
+              path="/add-purchase-invoice"
+              element={<AddEditPurchaseInvoicePage />}
+            />
+            <Route
+              path="/edit-purchase-invoice/:id"
+              element={<AddEditPurchaseInvoicePage />}
             />
           </Route>
         </Routes>

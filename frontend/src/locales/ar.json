@@ -11,6 +11,8 @@
     "add_supplier": "إضافة مورد",
     "edit_supplier": "تعديل المورد",
     "purchases": "المشتريات",
+    "add_purchase_invoice": "إضافة فاتورة مشتريات",
+    "edit_purchase_invoice": "تعديل فاتورة مشتريات",
     "sales": "المبيعات",
     "reports": "التقارير"
   },
@@ -29,7 +31,9 @@
     "actions": "الإجراءات",
     "back": "رجوع",
     "search": "بحث",
-    "search_placeholder": "بحث..."
+    "search_placeholder": "بحث...",
+    "add": "إضافة",
+    "edit": "تعديل"
   },
   "product_sort_by": {
     "newest": "الأحدث",
@@ -238,6 +242,58 @@
 
       "delete_supplier_title": "حذف المورد",
       "delete_supplier_message": "هل أنت متأكد أنك تريد حذف هذا المورد؟"
+    },
+    "purchase_invoice_page": {
+      "add_title": "إنشاء فاتورة مشتريات",
+      "add_desc": "إضافة المنتجات وضبط الأسعار وتسجيل مدفوعات المورد",
+      "edit_title": "تعديل فاتورة المشتريات",
+      "edit_desc": "تعديل المنتجات والأسعار والمدفوعات لهذه الفاتورة",
+      "add_new": "إضافة فاتورة مشتريات جديدة",
+      "edit": "تعديل فاتورة المشتريات",
+
+      "btn_cancel": "إلغاء",
+      "btn_save": "حفظ الفاتورة",
+      "btn_finalize": "إتمام الحفظ",
+      "btn_add": "إضافة",
+
+      "info_title": "معلومات الفاتورة",
+      "invoice_no": "رقم الفاتورة",
+      "invoice_date": "تاريخ الفاتورة",
+      "supplier": "المورد",
+      "select_supplier": "اختر المورد",
+
+      "product_title": "إضافة منتجات",
+      "product_search": "ابحث باسم المنتج أو SKU...",
+      "product_empty": "لا توجد عناصر بعد. ابحث عن المنتجات للبدء.",
+      "sku": "رمز المنتج",
+      "in_stock": "متوفر",
+
+      "table_product": "المنتج",
+      "table_qty": "الكمية",
+      "table_price": "سعر الوحدة",
+      "table_total": "الإجمالي",
+      "table_action": "إجراء",
+
+      "payment_title": "تسجيل المدفوعات",
+      "payment_method": "طريقة الدفع",
+      "payment_amount": "المبلغ",
+      "payment_ref": "رقم المرجع / الشيك",
+      "payment_notes": "ملاحظات",
+
+      "summary_title": "ملخص الأسعار",
+      "subtotal": "المجموع الفرعي",
+      "discount": "الخصم (%)",
+      "discount_amount": "قيمة الخصم",
+      "tax": "الضريبة (%)",
+      "tax_amount": "قيمة الضريبة",
+      "net_total": "الصافي",
+
+      "balance_title": "رصيد المدفوعات",
+      "total_paid": "إجمالي المدفوع",
+      "remaining": "المتبقي",
+      "unpaid_warning": "يوجد مبلغ غير مدفوع قدره",
+
+      "success": "تم إنشاء فاتورة المشتريات بنجاح!"
     }
   },
   "genders": {
@@ -245,5 +301,10 @@
     "male": "ذكر",
     "female": "أنثى",
     "other": "آخر"
+  },
+  "payment_methods": {
+    "cash": "نقدي",
+    "bankak": "بنكاك",
+    "fawry": "فوري"
   }
 }
