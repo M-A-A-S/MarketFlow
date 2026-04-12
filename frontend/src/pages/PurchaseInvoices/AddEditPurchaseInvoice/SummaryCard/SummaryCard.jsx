@@ -1,4 +1,4 @@
-import { Check } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 import { formatMoney, safeCall } from "../../../../utils/utils";
 import { useLanguage } from "../../../../hooks/useLanguage";
 import Button from "../../../../components/UI/Button";
@@ -17,6 +17,7 @@ const SummaryCard = ({
   calculatePaidAmount,
   calculateRemainingAmount,
   onSubmit,
+  loading,
 }) => {
   const handleSubmit = safeCall(onSubmit);
 
@@ -64,7 +65,7 @@ const SummaryCard = ({
         <SummaryRow label={subtotalLabel} value={subtotal} />
 
         <AmountInputRow
-          label={discount}
+          label={discount_amount}
           value={discountAmount}
           onChange={handleDiscountAmountChange}
           type="number"
@@ -79,7 +80,7 @@ const SummaryCard = ({
         )}
 
         <AmountInputRow
-          label={tax}
+          label={tax_amount}
           value={taxAmount}
           onChange={handleTaxAmountChange}
           type="number"
@@ -107,8 +108,18 @@ const SummaryCard = ({
         unpaidWarning={unpaid_warning}
       />
 
-      <Button onClick={handleSubmit} className="w-full justify-center mt-6">
-        <Check /> {save}
+      <Button
+        disabled={loading}
+        onClick={handleSubmit}
+        className="w-full justify-center mt-6"
+      >
+        {loading ? (
+          <Loader2 className="animate-spin" />
+        ) : (
+          <>
+            <Check /> {save}
+          </>
+        )}
       </Button>
     </div>
   );

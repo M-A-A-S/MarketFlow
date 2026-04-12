@@ -6,5 +6,6 @@ namespace MarketFlow.DataAccess.Interfaces
     public interface IProductRepository : IRepository<Product>
     {
         Task<Result<IEnumerable<Product>>> GetDropdownAsync(string search);
+        Task<Result<List<Product>>> GetByIdsAsync(List<int> productIds);
     }
 }

@@ -38,10 +38,10 @@ namespace MarketFlow.Utilities.Extensions
                 PurchaseInvoiceId = DTO.PurchaseInvoiceId ?? 0,
                 ProductId = DTO.ProductId,
                 Quantity = DTO.Quantity,
-                UnitPrice = DTO.UnitPrice
+                //UnitPrice = DTO.UnitPrice
             };
         }
-        
+
         public static void UpdateFromDTO(this PurchaseInvoiceItem entity, PurchaseInvoiceItemDTO DTO)
         {
             if (entity == null || DTO == null)
@@ -51,7 +51,7 @@ namespace MarketFlow.Utilities.Extensions
 
             entity.ProductId = DTO.ProductId;
             entity.Quantity = DTO.Quantity;
-            entity.UnitPrice = DTO.UnitPrice;
+            //entity.UnitPrice = DTO.UnitPrice;
         }
     }
 }

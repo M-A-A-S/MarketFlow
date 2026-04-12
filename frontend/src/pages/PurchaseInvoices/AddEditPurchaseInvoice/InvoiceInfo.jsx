@@ -26,7 +26,8 @@ const InvoiceInfo = ({ formData, updateField, isModeUpdate, errors }) => {
         )}
 
         <Input
-          type="date"
+          // type="date"
+          type="datetime-local"
           showLabel={true}
           label={invoice_date}
           value={formData.invoiceDate}

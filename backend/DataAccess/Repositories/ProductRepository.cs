@@ -1,6 +1,7 @@
 ﻿using MarketFlow.DataAccess.Interfaces;
 using MarketFlow.Entities;
 using MarketFlow.Utilities;
+using MarketFlow.Utilities.ResultCodes;
 using Microsoft.EntityFrameworkCore;
 
 namespace MarketFlow.DataAccess.Repositories
@@ -46,5 +47,26 @@ namespace MarketFlow.DataAccess.Repositories
                 return Result<IEnumerable<Product>>.Failure(ex.Message, 500);
             }
         }
+
+        public async Task<Result<List<Product>>> GetByIdsAsync(List<int> productIds)
+        {
+            if (productIds == null || !productIds.Any())
+            {
+                return Result<List<Product>>.Failure(ResultCodes.NoProductIdsProvided, 400);
+            }
+
+            var products = await _context.Products
+                .Where(p => productIds.Contains(p.Id))
+                .AsNoTracking()
+                .ToListAsync();
+
+            if (products.Count == 0)
+            {
+                return Result<List<Product>>.Failure(ResultCodes.ProductsNotFound, 404);
+            }
+
+            return Result<List<Product>>.Success(products);
+        }
+
     }
 }

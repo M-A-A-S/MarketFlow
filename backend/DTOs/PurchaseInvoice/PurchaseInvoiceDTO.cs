@@ -7,13 +7,13 @@ namespace MarketFlow.DTOs.PurchaseInvoice
     public class PurchaseInvoiceDTO
     {
         public int? Id { get; set; }
-        public DateTime InvoiceDate { get; set; } = DateTime.UtcNow;
-        public string InvoiceNumber { get; set; }
+        public DateTime? InvoiceDate { get; set; } = DateTime.UtcNow;
+        public string? InvoiceNumber { get; set; }
         public int SupplierId { get; set; }
-        public decimal TotalBeforeDiscount { get; set; }
-        public decimal Discount { get; set; }
-        public decimal Tax { get; set; }
-        public decimal NetTotal { get; set; }
+        public decimal? TotalBeforeDiscount { get; set; }
+        public decimal? Discount { get; set; }
+        public decimal? Tax { get; set; }
+        public decimal? NetTotal { get; set; }
 
         public SupplierDTO? Supplier { get; set; }
         public List<PurchaseInvoiceItemDTO> Items { get; set; } = new();

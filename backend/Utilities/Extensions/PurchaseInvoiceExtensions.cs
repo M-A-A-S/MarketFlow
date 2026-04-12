@@ -43,16 +43,16 @@ namespace MarketFlow.Utilities.Extensions
 
             return new PurchaseInvoice
             {
-                Id = DTO.Id ?? 0,
-                InvoiceDate = DTO.InvoiceDate,
-                InvoiceNumber = DTO.InvoiceNumber,
-                SupplierId = DTO.SupplierId,
-                TotalBeforeDiscount = DTO.TotalBeforeDiscount,
-                Discount = DTO.Discount,
-                Tax = DTO.Tax,
-                NetTotal = DTO.NetTotal,
-                Items = DTO.Items?.Select(i => i.ToEntity()).ToList(),
-                Payments = DTO.Payments?.Select(p => p.ToEntity()).ToList(),
+                //Id = DTO.Id ?? 0,
+                //InvoiceDate = DTO.InvoiceDate ?? DateTime.UtcNow,
+                //InvoiceNumber = DTO.InvoiceNumber,
+                //SupplierId = DTO.SupplierId,
+                //TotalBeforeDiscount = DTO.TotalBeforeDiscount,
+                //Discount = DTO.Discount,
+                //Tax = DTO.Tax,
+                //NetTotal = DTO.NetTotal,
+                //Items = DTO.Items?.Select(i => i.ToEntity()).ToList(),
+                //Payments = DTO.Payments?.Select(p => p.ToEntity()).ToList(),
             };
         }
 
@@ -63,13 +63,13 @@ namespace MarketFlow.Utilities.Extensions
                 return;
             }
 
-            entity.InvoiceDate = DTO.InvoiceDate;
-            entity.SupplierId = DTO.SupplierId;
+            //entity.InvoiceDate = DTO.InvoiceDate;
+            //entity.SupplierId = DTO.SupplierId;
 
-            entity.TotalBeforeDiscount = DTO.TotalBeforeDiscount;
-            entity.Discount = DTO.Discount;
-            entity.Tax = DTO.Tax;
-            entity.NetTotal = DTO.NetTotal;
+            //entity.TotalBeforeDiscount = DTO.TotalBeforeDiscount;
+            //entity.Discount = DTO.Discount;
+            //entity.Tax = DTO.Tax;
+            //entity.NetTotal = DTO.NetTotal;
         }
 
     }

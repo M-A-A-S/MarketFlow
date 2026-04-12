@@ -2,22 +2,25 @@ import React, { useState, useMemo, useEffect, useRef } from "react";
 import PageHeader from "../../../components/PageHeader";
 import { useLanguage } from "../../../hooks/useLanguage";
 import { useDebounce } from "../../../hooks/useDebounce";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../../components/UI/Button";
 import SearchableSelect from "../../../components/UI/SearchableSelect";
 import InvoiceInfo from "./InvoiceInfo";
-import { read } from "../../../api/apiWrapper";
+import { create, read, update } from "../../../api/apiWrapper";
 import PurchaseInvoiceItemsTable from "./ItemsTable";
-import PaymentsSection from "./PaymentsSection";
+import PaymentsSection from "./PaymentsSection/PaymentsSection";
 import InvoiceHeader from "./InvoiceHeader";
 import ProductSearch from "./ProductSearch";
 import ItemsTable from "./ItemsTable";
 import SummaryCard from "./SummaryCard/SummaryCard";
+import { showFail, showSuccess } from "../../../utils/utils";
+import { toast } from "../../../utils/toastHelper";
 
 const purchasePaymentData = {
   paymentMethod: "",
   amount: "",
-  paymentDate: "",
+  // paymentDate: "",
+  paymentDate: new Date().toISOString(),
   transactionReference: "",
   notes: "",
 };
@@ -30,7 +33,9 @@ const purchaseInvoiceItemData = {
 };
 
 const purchaseInvoiceData = {
-  invoiceDate: "",
+  // invoiceDate: "",
+  // invoiceDate: new Date().toISOString(),
+  invoiceDate: new Date().toISOString().slice(0, 16),
   invoiceNumber: "",
   supplierId: "",
   totalBeforeDiscount: "",
@@ -44,6 +49,7 @@ const purchaseInvoiceData = {
 
 export default function AddEditPurchaseInvoicePage() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState(purchaseInvoiceData);
   const [errors, setErrors] = useState({});
@@ -56,14 +62,6 @@ export default function AddEditPurchaseInvoicePage() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // State matching entities
-  const [invoiceDate, setInvoiceDate] = useState(
-    new Date().toISOString().split("T")[0],
-  );
-  const [invoiceNumber, setInvoiceNumber] = useState(
-    `PO-${Date.now().toString().slice(-8)}`,
-  );
-  const [supplierId, setSupplierId] = useState("");
   const [discountAmount, setDiscountAmount] = useState(0);
   const [taxAmount, setTaxAmount] = useState(0);
 
@@ -71,30 +69,19 @@ export default function AddEditPurchaseInvoicePage() {
   const [payments, setPayments] = useState([]);
 
   // Search state
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const searchRef = useRef(null);
 
-  const [products, setProducts] = useState(false);
-  const [searchText, setSearchText] = useState("");
-  const [loadingProducts, setLoadingProducts] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null);
   const { translations, language } = useLanguage();
 
-  const {} = translations.pages.purchase_invoice_page;
-
-  // Calculations
-  // const subtotal = useMemo(
-  //   () => items.reduce((sum, i) => sum + i.quantity * i.unitPrice, 0),
-  //   [items],
-  // );
-  // const taxableAmount = subtotal - discountAmount;
-  // const taxAmount = taxableAmount * (taxPercent / 100);
-  // const netTotal = taxableAmount + taxAmount;
-  // const netTotal = subtotal - discountAmount + taxAmount;
-  // const paidAmount = payments.reduce((sum, p) => sum + p.amount, 0);
-  // const remainingAmount = netTotal - paidAmount;
+  const {
+    supplier_error,
+    product_required,
+    add_success,
+    add_fail,
+    update_success,
+    update_fail,
+    fetch_fail,
+    validation_fail,
+  } = translations.pages.purchase_invoice_page;
 
   function calculateSubTotal() {
     return items.reduce(
@@ -119,15 +106,15 @@ export default function AddEditPurchaseInvoicePage() {
     let newErrors = {};
 
     if (!formData.supplierId) {
-      newErrors.supplierId = "apayment Method is required";
+      newErrors.supplierId = supplier_error;
     }
 
     if (!items.length) {
-      newErrors.amount = "apayment Method is required";
+      newErrors.amount = product_required;
     }
 
     if (!payments.length) {
-      newErrors.amount = "apayment Method is required";
+      // newErrors.amount = "apayment Method is required";
     }
 
     setErrors(newErrors);
@@ -142,6 +129,18 @@ export default function AddEditPurchaseInvoicePage() {
     payload.totalBeforeDiscount = calculateSubTotal();
     payload.netTotal = calculateNetTotal();
 
+    payload.items = items.map((item) => ({
+      productId: item?.product?.id,
+      quantity: item.quantity,
+    }));
+
+    payload.payments = payments.map((payment) => ({
+      paymentMethod: payment.paymentMethod,
+      amount: payment.amount,
+      transactionReference: payment.transactionReference,
+      notes: payment.notes,
+    }));
+
     return payload;
   };
 
@@ -150,11 +149,76 @@ export default function AddEditPurchaseInvoicePage() {
     e?.preventDefault();
 
     if (!validateFormData()) {
+      toast.error(validation_fail);
       return;
     }
 
     const payload = generatePayload();
+
+    if (isModeUpdate) {
+      updatePurchaseInvoice(payload);
+    } else {
+      addPurchaseInvoice(payload);
+    }
   };
+
+  async function fetchPurchaseInvoice(id) {
+    try {
+      setLoading(true);
+      const result = await read(`purchase-invoices/${id}`);
+      console.log("result -> ", result);
+
+      const product = result.data;
+
+      setFormData({
+        nameEn: product.nameEn || "",
+        nameAr: product.nameAr || "",
+        descriptionEn: product.descriptionEn || "",
+        descriptionAr: product.descriptionAr || "",
+        price: product.price !== null ? product.price : "",
+        barcode: product.barcode || "",
+        stockQuantity:
+          product.stockQuantity !== null ? product.stockQuantity : "",
+        categoryId: product.categoryId || "",
+        brandId: product.brandId || "",
+        isActive: product.isActive ?? true,
+        imageUrl: product.imageUrl || "",
+        imageFile: null,
+        deleteImage: false,
+      });
+    } catch (error) {
+      console.error("Fetch product error: ", error);
+      showFail(error?.code, fetch_fail);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function addPurchaseInvoice(payload) {
+    try {
+      setActionLoading(true);
+      const result = await create("purchase-invoices", payload);
+      showSuccess(result?.code, add_success);
+      navigate("/purchase-invoices");
+    } catch (err) {
+      showFail(err?.code, add_fail);
+    } finally {
+      setActionLoading(false);
+    }
+  }
+
+  async function updatePurchaseInvoice(payload) {
+    try {
+      setActionLoading(true);
+      const result = await update(`purchase-invoices/${id}`, payload);
+      showSuccess(result?.code, update_success);
+      navigate("/purchase-invoices");
+    } catch (err) {
+      showFail(err?.code, update_fail);
+    } finally {
+      setActionLoading(false);
+    }
+  }
 
   return (
     <div>
@@ -196,6 +260,7 @@ export default function AddEditPurchaseInvoicePage() {
             calculatePaidAmount={calculatePaidAmount}
             calculateRemainingAmount={calculateRemainingAmount}
             onSubmit={handleSubmit}
+            loading={actionLoading}
           />
         </div>
       </div>

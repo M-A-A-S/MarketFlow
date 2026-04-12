@@ -244,56 +244,85 @@
       "delete_supplier_message": "هل أنت متأكد أنك تريد حذف هذا المورد؟"
     },
     "purchase_invoice_page": {
-      "add_title": "إنشاء فاتورة مشتريات",
-      "add_desc": "إضافة المنتجات وضبط الأسعار وتسجيل مدفوعات المورد",
-      "edit_title": "تعديل فاتورة المشتريات",
+      "add_title": "إنشاء فاتورة شراء",
+      "add_desc": "أضف المنتجات وحدد الأسعار وسجل مدفوعات المورد",
+      "edit_title": "تعديل فاتورة الشراء",
       "edit_desc": "تعديل المنتجات والأسعار والمدفوعات لهذه الفاتورة",
-      "add_new": "إضافة فاتورة مشتريات جديدة",
-      "edit": "تعديل فاتورة المشتريات",
+      "add_new": "إضافة فاتورة شراء",
+      "edit": "تعديل فاتورة الشراء",
 
       "btn_cancel": "إلغاء",
       "btn_save": "حفظ الفاتورة",
-      "btn_finalize": "إتمام الحفظ",
+      "btn_finalize": "حفظ وإنهاء",
       "btn_add": "إضافة",
 
       "info_title": "معلومات الفاتورة",
       "invoice_no": "رقم الفاتورة",
       "invoice_date": "تاريخ الفاتورة",
+      "invoice_date_error": "تاريخ الفاتورة مطلوب",
+
       "supplier": "المورد",
       "select_supplier": "اختر المورد",
+      "supplier_error": "المورد مطلوب",
 
       "product_title": "إضافة منتجات",
       "product_search": "ابحث باسم المنتج أو SKU...",
-      "product_empty": "لا توجد عناصر بعد. ابحث عن المنتجات للبدء.",
-      "sku": "رمز المنتج",
-      "in_stock": "متوفر",
+      "product_empty": "لا توجد منتجات مضافة بعد. ابدأ بالبحث أعلاه.",
+      "product_required": "يجب إضافة منتج واحد على الأقل",
+
+      "sku": "SKU",
+      "in_stock": "المخزون",
 
       "table_product": "المنتج",
       "table_qty": "الكمية",
+      "table_qty_error": "يجب أن تكون الكمية أكبر من 0",
       "table_price": "سعر الوحدة",
+      "table_price_error": "يجب أن يكون السعر رقمًا صالحًا",
       "table_total": "الإجمالي",
-      "table_action": "إجراء",
+      "table_action": "الإجراء",
 
       "payment_title": "تسجيل المدفوعات",
       "payment_method": "طريقة الدفع",
+      "payment_method_error": "طريقة الدفع مطلوبة",
+
       "payment_amount": "المبلغ",
-      "payment_ref": "رقم المرجع / الشيك",
+      "payment_amount_error": "يجب أن يكون المبلغ أكبر من 0",
+      "payment_amount_exceed": "لا يمكن أن يتجاوز المبلغ الرصيد المتبقي",
+
+      "payment_ref": "المرجع / رقم الشيك",
       "payment_notes": "ملاحظات",
 
       "summary_title": "ملخص الأسعار",
-      "subtotal": "المجموع الفرعي",
-      "discount": "الخصم (%)",
-      "discount_amount": "قيمة الخصم",
-      "tax": "الضريبة (%)",
-      "tax_amount": "قيمة الضريبة",
-      "net_total": "الصافي",
+      "subtotal": "المجموع",
 
-      "balance_title": "رصيد المدفوعات",
+      "discount": "الخصم",
+      "discount_error": "يجب أن يكون الخصم رقمًا صالحًا",
+      "discount_exceed": "لا يمكن أن يتجاوز الخصم المجموع",
+
+      "discount_amount": "قيمة الخصم",
+
+      "tax": "الضريبة",
+      "tax_error": "يجب أن تكون الضريبة رقمًا صالحًا",
+      "tax_amount": "قيمة الضريبة",
+
+      "net_total": "الإجمالي النهائي",
+
+      "balance_title": "رصيد الدفع",
       "total_paid": "إجمالي المدفوع",
       "remaining": "المتبقي",
-      "unpaid_warning": "يوجد مبلغ غير مدفوع قدره",
+      "unpaid_warning": "هذه الفاتورة تحتوي على رصيد غير مدفوع قدره",
 
-      "success": "تم إنشاء فاتورة المشتريات بنجاح!"
+      "add_success": "تم إنشاء فاتورة الشراء بنجاح!",
+      "add_fail": "فشل في إنشاء الفاتورة، حاول مرة أخرى.",
+
+      "update_success": "تم تعديل فاتورة الشراء بنجاح!",
+      "update_fail": "فشل في تعديل الفاتورة، حاول مرة أخرى.",
+
+      "delete_success": "تم حذف فاتورة الشراء بنجاح!",
+      "delete_fail": "فشل في حذف الفاتورة.",
+
+      "validation_fail": "يرجى تصحيح الأخطاء قبل الحفظ.",
+      "fetch_fail": "فشل في تحميل بيانات الفاتورة."
     }
   },
   "genders": {
