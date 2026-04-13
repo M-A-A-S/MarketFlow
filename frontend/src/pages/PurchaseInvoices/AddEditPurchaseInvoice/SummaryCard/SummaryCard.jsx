@@ -18,6 +18,7 @@ const SummaryCard = ({
   calculateRemainingAmount,
   onSubmit,
   loading,
+  isEditable,
 }) => {
   const handleSubmit = safeCall(onSubmit);
 
@@ -69,6 +70,7 @@ const SummaryCard = ({
           value={discountAmount}
           onChange={handleDiscountAmountChange}
           type="number"
+          disabled={!isEditable}
         />
 
         {discountAmount > 0 && (
@@ -83,6 +85,7 @@ const SummaryCard = ({
           label={tax_amount}
           value={taxAmount}
           onChange={handleTaxAmountChange}
+          disabled={!isEditable}
           type="number"
         />
 
@@ -108,8 +111,8 @@ const SummaryCard = ({
         unpaidWarning={unpaid_warning}
       />
 
-      <Button
-        disabled={loading}
+      {/* <Button
+        disabled={loading || !isEditable}
         onClick={handleSubmit}
         className="w-full justify-center mt-6"
       >
@@ -120,7 +123,7 @@ const SummaryCard = ({
             <Check /> {save}
           </>
         )}
-      </Button>
+      </Button> */}
     </div>
   );
 };

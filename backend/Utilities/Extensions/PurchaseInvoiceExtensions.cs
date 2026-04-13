@@ -18,6 +18,7 @@ namespace MarketFlow.Utilities.Extensions
             {
                 Id = entity.Id,
                 InvoiceDate = entity.InvoiceDate,
+                Status = entity.Status,
                 InvoiceNumber = entity.InvoiceNumber,
                 SupplierId = entity.SupplierId,
                 TotalBeforeDiscount = entity.TotalBeforeDiscount,

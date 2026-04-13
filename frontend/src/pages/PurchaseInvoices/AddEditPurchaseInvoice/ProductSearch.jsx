@@ -4,7 +4,7 @@ import { useDebounce } from "../../../hooks/useDebounce";
 import { read } from "../../../api/apiWrapper";
 import { useLanguage } from "../../../hooks/useLanguage";
 
-const ProductSearch = ({ setItems }) => {
+const ProductSearch = ({ setItems, isEditable }) => {
   const [searchText, setSearchText] = useState("");
   const [products, setProducts] = useState(false);
   const [loadingProducts, setLoadingProducts] = useState(false);
@@ -61,6 +61,7 @@ const ProductSearch = ({ setItems }) => {
 
   return (
     <SearchableSelect
+      disabled={!isEditable}
       options={products}
       inputValue={searchText}
       label={product_title}

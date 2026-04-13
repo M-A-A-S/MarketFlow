@@ -6,9 +6,13 @@ import TextArea from "../../../../components/UI/TextArea";
 import { useState } from "react";
 import { useLanguage } from "../../../../hooks/useLanguage";
 import { PAYMENT_METHOD } from "../../../../utils/constants";
+import { showFail, showSuccess } from "../../../../utils/utils";
+import { useParams } from "react-router-dom";
+import { create } from "../../../../api/apiWrapper";
 
 const purchasePaymentData = {
   id: "",
+  purchaseInvoiceId: "",
   paymentMethod: PAYMENT_METHOD.CASH,
   amount: "",
   paymentDate: new Date().toISOString(),
@@ -21,9 +25,12 @@ const PaymentForm = ({
   isModeUpdate,
   calculateRemainingAmount,
   calculateNetTotal,
+  canEditPayments,
 }) => {
+  const { id } = useParams();
   const [newPayment, setNewPayment] = useState(purchasePaymentData);
   const [errors, setErrors] = useState({});
+  const [actionLoading, setActionLoading] = useState(false);
 
   const { translations, language } = useLanguage();
 
@@ -39,32 +46,21 @@ const PaymentForm = ({
 
   const { add } = translations.common;
 
-  const addPayment = (e) => {
-    e?.preventDefault();
-
-    if (!validateFormData()) {
-      return;
-    }
-
-    if (isModeUpdate) {
-      setPayments((prev) => [...prev, { ...newPayment, id: Date.now() }]);
-    } else {
-      setPayments([newPayment]);
-    }
-
-    setNewPayment(purchasePaymentData);
-  };
-
   const updateField = (name, value) => {
     setNewPayment((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleAmountChange = (value) => {
     const remainingAmount = calculateRemainingAmount();
-    const safeValue = Math.max(
-      0,
-      Math.min(parseFloat(value) || 0, remainingAmount),
-    );
+
+    const parsedValue = parseFloat(value) || 0;
+
+    if (remainingAmount <= 0) {
+      return;
+    }
+
+    const safeValue = Math.max(0, Math.min(parsedValue, remainingAmount));
+
     updateField("amount", safeValue);
   };
 
@@ -91,6 +87,59 @@ const PaymentForm = ({
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+  };
+
+  async function addPurchasePayment(payload) {
+    try {
+      setActionLoading(true);
+      const result = await create("purchase-payments", payload);
+      // showSuccess(result?.code, add_success);
+      console.log("Sucess");
+    } catch (err) {
+      // showFail(err?.code, add_fail);
+      console.log("Error");
+    } finally {
+      setActionLoading(false);
+    }
+  }
+
+  const generatePayload = () => {
+    const payload = {};
+
+    payload.purchaseInvoiceId = parseInt(id);
+    payload.paymentMethod = parseInt(newPayment.paymentMethod);
+    payload.amount = parseFloat(newPayment.amount);
+    payload.transactionReference = newPayment.transactionReference;
+    payload.notes = newPayment.notes;
+
+    return payload;
+  };
+
+  const addPayment = async (e) => {
+    e?.preventDefault();
+
+    if (!canEditPayments) {
+      return;
+    }
+
+    if (!validateFormData()) {
+      return;
+    }
+
+    if (isModeUpdate) {
+      // setPayments((prev) => [...prev, { ...newPayment, id: Date.now() }]);
+
+      const payload = generatePayload();
+
+      console.log("payload -> ", payload);
+      await addPurchasePayment(payload);
+
+      setPayments((prev) => [...prev, { ...newPayment, id: Date.now() }]);
+    } else {
+      setPayments([newPayment]);
+    }
+
+    setNewPayment(purchasePaymentData);
   };
 
   return (

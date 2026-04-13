@@ -7,6 +7,7 @@ using MarketFlow.Enums;
 using MarketFlow.Utilities;
 using MarketFlow.Utilities.Extensions;
 using MarketFlow.Utilities.ResultCodes;
+using Microsoft.EntityFrameworkCore;
 
 namespace MarketFlow.Business.Services
 {
@@ -67,7 +68,7 @@ namespace MarketFlow.Business.Services
         #region GetById
         public async Task<Result<PurchaseInvoiceDTO>> GetByIdAsync(int id)
         {
-            var findByIdResult = await _repo.FindByAsync(x => x.Id == id);
+            var findByIdResult = await _repo.FindByAsync(x => x.Id == id, q => q.Include(p => p.Items).ThenInclude(i => i.Product).Include(p => p.Payments));
 
             if (!findByIdResult.IsSuccess || findByIdResult.Data == null)
             {
@@ -98,7 +99,9 @@ namespace MarketFlow.Business.Services
         #region Update
         public async Task<Result<PurchaseInvoiceDTO>> UpdateAsync(int id, PurchaseInvoiceDTO dto)
         {
-            var findByIdResult = await _repo.FindByAsync(x => x.Id == id);
+            var findByIdResult = await _repo.FindByAsync(x => x.Id == id, 
+                q => q.Include(p => p.Items)
+                       .Include(p => p.Payments));
 
             if (!findByIdResult.IsSuccess || findByIdResult.Data == null)
             {
@@ -107,6 +110,16 @@ namespace MarketFlow.Business.Services
             }
 
             var entity = findByIdResult.Data;
+
+            var hasPayments = entity.Payments.Any();
+
+            if (hasPayments && dto.Items != null && dto.Items.Any())
+            {
+                return Result<PurchaseInvoiceDTO>.Failure(
+                    ResultCodes.InvoiceHasPaymentsCannotEditItems,
+                    400
+                );
+            }
 
             // Validate status
             var statusResult = ValidateAndSetStatus(entity, dto.Status);
@@ -137,21 +150,29 @@ namespace MarketFlow.Business.Services
             var productDict = productsResult.Data;
 
             // Update main fields
-            UpdateMainFields(entity, dto);
+            UpdateMainFields(entity, dto, hasPayments);
 
             // Replace items (DB price)
-            var replaceItemsResult = await ReplaceItemsAsync(entity, dto.Items, productDict);
-
-            if (!replaceItemsResult.IsSuccess)
+            if (!hasPayments)
             {
-                return Result<PurchaseInvoiceDTO>
-                    .Failure(replaceItemsResult.Code, replaceItemsResult.StatusCode);
+                var replaceItemsResult = await ReplaceItemsAsync(entity, dto.Items, productDict);
+
+                if (!replaceItemsResult.IsSuccess)
+                {
+                    return Result<PurchaseInvoiceDTO>
+                        .Failure(replaceItemsResult.Code, replaceItemsResult.StatusCode);
+                }
+
+                // Recalculate totals (server-side only)
+                RecalculateTotals(entity, dto);
             }
 
-            // Recalculate totals (server-side only)
-            RecalculateTotals(entity, dto);
 
-            if (entity.Payments.Any() && entity.Status == PurchaseInvoiceStatus.Draft)
+            if (entity.GetPaidAmount() >= entity.NetTotal)
+            {
+                entity.Status = PurchaseInvoiceStatus.Approved;
+            }
+            else if (entity.Payments.Any())
             {
                 entity.Status = PurchaseInvoiceStatus.Pending;
             }
@@ -322,43 +343,46 @@ namespace MarketFlow.Business.Services
             return Result<bool>.Success(true);
         }
 
-        private void UpdateMainFields(PurchaseInvoice entity, PurchaseInvoiceDTO dto)
+        private void UpdateMainFields(PurchaseInvoice entity, PurchaseInvoiceDTO dto, bool hasPayments)
         {
             entity.InvoiceDate = dto.InvoiceDate ?? entity.InvoiceDate;
             //entity.InvoiceNumber = dto.InvoiceNumber;
-            entity.SupplierId = dto.SupplierId;
+
+            if (!hasPayments)
+            {
+                entity.SupplierId = dto.SupplierId;
+            }
         }
 
         private async Task<Result<bool>> ReplaceItemsAsync(
-    PurchaseInvoice entity,
-    List<PurchaseInvoiceItemDTO> items,
-    Dictionary<int, Product> productDict)
+            PurchaseInvoice entity,
+            List<PurchaseInvoiceItemDTO> items,
+            Dictionary<int, Product> productDict)
         {
-            // Delete old items
-            var deleteResult = await _purchaseInvoiceItemRepository
-                .DeleteRangeAsync(entity.Items);
-
-            if (!deleteResult.IsSuccess)
+            // Soft delete old items
+            foreach (var oldItem in entity.Items)
             {
-                return Result<bool>.Failure(
-                    deleteResult.Code,
-                    deleteResult.StatusCode
-                );
+                oldItem.IsDeleted = true;
             }
 
-            // Rebuild using DB price
-            entity.Items = items.Select(x =>
-            {
-                var product = productDict[x.ProductId];
+            // Add new items
+            var newItems = new List<PurchaseInvoiceItem>();
 
-                return new PurchaseInvoiceItem
+            foreach (var item in items)
+            {
+                var product = productDict[item.ProductId];
+
+                newItems.Add(new PurchaseInvoiceItem
                 {
-                    ProductId = x.ProductId,
-                    Quantity = x.Quantity,
-                    UnitPrice = product.Price, // from DB
-                    PurchaseInvoiceId = entity.Id
-                };
-            }).ToList();
+                    ProductId = item.ProductId,
+                    Quantity = item.Quantity,
+                    UnitPrice = product.Price,
+                    PurchaseInvoiceId = entity.Id,
+                    IsDeleted = false
+                });
+            }
+
+            entity.Items.AddRange(newItems);
 
             return Result<bool>.Success(true);
         }

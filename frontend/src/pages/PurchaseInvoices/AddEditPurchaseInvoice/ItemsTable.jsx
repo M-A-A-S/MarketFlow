@@ -3,7 +3,7 @@ import { useLanguage } from "../../../hooks/useLanguage";
 import { formatMoney } from "../../../utils/utils";
 import Input from "../../../components/UI/Input";
 
-const ItemsTable = ({ items = [], setItems }) => {
+const ItemsTable = ({ items = [], setItems, isEditable }) => {
   const { translations, language } = useLanguage();
 
   const {
@@ -81,6 +81,8 @@ const ItemsTable = ({ items = [], setItems }) => {
                       onChange={(e) =>
                         updateItem(idx, "quantity", e.target.value)
                       }
+                      disabled={!isEditable}
+                      readOnly={!isEditable}
                       className="w-20"
                     />
                   </td>
@@ -97,12 +99,14 @@ const ItemsTable = ({ items = [], setItems }) => {
                     ${formatMoney(item.quantity * item?.product?.price)}
                   </td>
                   <td className="px-4 py-3 text-center">
-                    <button
-                      onClick={() => removeItem(idx)}
-                      className="p-1.5 text-red-500 hover:bg-red-50 rounded transition"
-                    >
-                      <Trash2 />
-                    </button>
+                    {isEditable && (
+                      <button
+                        onClick={() => removeItem(idx)}
+                        className="p-1.5 text-red-500 hover:bg-red-50 rounded transition"
+                      >
+                        <Trash2 />
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}

@@ -7,6 +7,7 @@ const AmountInputRow = ({
   min,
   max,
   onChange,
+  disabled,
   ...props
 }) => (
   <div className="flex items-center justify-between text-sm">
@@ -16,6 +17,7 @@ const AmountInputRow = ({
       min={min}
       type={type}
       value={value}
+      disabled={disabled}
       onChange={(e) => onChange(parseFloat(e.target.value) || 0)}
       className="w-24"
       {...props}

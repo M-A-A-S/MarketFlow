@@ -19,7 +19,7 @@ namespace MarketFlow.DTOs.PurchaseInvoice
 
         public SupplierDTO? Supplier { get; set; }
         public List<PurchaseInvoiceItemDTO> Items { get; set; } = new();
-        public List<PurchasePaymentDTO> Payments { get; set; } = new();
+        public List<PurchasePaymentDTO>? Payments { get; set; } = new();
 
         // Read-only(for UI only)
         public decimal? PaidAmount { get; set; }

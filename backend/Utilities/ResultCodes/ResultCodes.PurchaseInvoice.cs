@@ -10,5 +10,6 @@
         public const string InvalidStatusTransition = "invalid_status_transition";
         public const string InvoiceAlreadyCancelled = "invoice_already_cancelled";
         public const string InvalidInvoiceItems = "invalid_invoice_items";
+        public const string InvoiceHasPaymentsCannotEditItems = "invoice_has_payments_cannot_edit_items";
     }
 }

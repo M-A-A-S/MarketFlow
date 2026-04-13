@@ -15,6 +15,7 @@ import ItemsTable from "./ItemsTable";
 import SummaryCard from "./SummaryCard/SummaryCard";
 import { showFail, showSuccess } from "../../../utils/utils";
 import { toast } from "../../../utils/toastHelper";
+import { PURCHASE_INVOICE_STATUS } from "../../../utils/constants";
 
 const purchasePaymentData = {
   paymentMethod: "",
@@ -36,6 +37,7 @@ const purchaseInvoiceData = {
   // invoiceDate: "",
   // invoiceDate: new Date().toISOString(),
   invoiceDate: new Date().toISOString().slice(0, 16),
+  status: PURCHASE_INVOICE_STATUS.DRAFT,
   invoiceNumber: "",
   supplierId: "",
   totalBeforeDiscount: "",
@@ -57,6 +59,16 @@ export default function AddEditPurchaseInvoicePage() {
   const [actionLoading, setActionLoading] = useState(false);
 
   const [isModeUpdate, setIsModeUpdate] = useState(false);
+
+  useEffect(() => {
+    if (id) {
+      setIsModeUpdate(true);
+      fetchPurchaseInvoice(id);
+    } else {
+      setIsModeUpdate(false);
+      setFormData(purchaseInvoiceData);
+    }
+  }, [id]);
 
   const updateField = (name, value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -135,7 +147,8 @@ export default function AddEditPurchaseInvoicePage() {
     }));
 
     payload.payments = payments.map((payment) => ({
-      paymentMethod: payment.paymentMethod,
+      // paymentMethod: payment.paymentMethod,
+      paymentMethod: parseInt(payment.paymentMethod),
       amount: payment.amount,
       transactionReference: payment.transactionReference,
       notes: payment.notes,
@@ -162,30 +175,34 @@ export default function AddEditPurchaseInvoicePage() {
     }
   };
 
+  function updateClientDataFromBackend(purchaseInvoice) {
+    setFormData({
+      invoiceDate:
+        purchaseInvoice.purchaseInvoice ||
+        new Date().toISOString().slice(0, 16),
+      status: purchaseInvoice.status || "",
+      invoiceNumber: purchaseInvoice.invoiceNumber || "",
+      supplierId: purchaseInvoice.supplierId || "",
+      totalBeforeDiscount: purchaseInvoice.totalBeforeDiscount || "",
+      discount: purchaseInvoice.discount || "",
+      tax: purchaseInvoice.tax || "",
+      netTotal: purchaseInvoice.netTotal || "",
+    });
+
+    setDiscountAmount(purchaseInvoice.discount);
+    setTaxAmount(purchaseInvoice.tax);
+
+    setItems(purchaseInvoice.items);
+    setPayments(purchaseInvoice.payments);
+  }
+
   async function fetchPurchaseInvoice(id) {
     try {
       setLoading(true);
       const result = await read(`purchase-invoices/${id}`);
       console.log("result -> ", result);
-
-      const product = result.data;
-
-      setFormData({
-        nameEn: product.nameEn || "",
-        nameAr: product.nameAr || "",
-        descriptionEn: product.descriptionEn || "",
-        descriptionAr: product.descriptionAr || "",
-        price: product.price !== null ? product.price : "",
-        barcode: product.barcode || "",
-        stockQuantity:
-          product.stockQuantity !== null ? product.stockQuantity : "",
-        categoryId: product.categoryId || "",
-        brandId: product.brandId || "",
-        isActive: product.isActive ?? true,
-        imageUrl: product.imageUrl || "",
-        imageFile: null,
-        deleteImage: false,
-      });
+      const purchaseInvoice = result.data;
+      updateClientDataFromBackend(purchaseInvoice);
     } catch (error) {
       console.error("Fetch product error: ", error);
       showFail(error?.code, fetch_fail);
@@ -220,10 +237,55 @@ export default function AddEditPurchaseInvoicePage() {
     }
   }
 
+  function isInvoiceEditable(status, paidAmount = 0) {
+    // return (
+    //   status === PURCHASE_INVOICE_STATUS.DRAFT ||
+    //   status === PURCHASE_INVOICE_STATUS.PENDING
+    // );
+
+    const lockedStatuses = [
+      PURCHASE_INVOICE_STATUS.APPROVED,
+      PURCHASE_INVOICE_STATUS.CANCELLED,
+    ];
+
+    // always locked if final status
+    if (lockedStatuses.includes(status)) {
+      return false;
+    }
+
+    // if invoice has ANY payment → lock editing
+    if (paidAmount > 0) {
+      return false;
+    }
+
+    return true;
+  }
+
+  function canUpdateInvoice(status, isModeUpdate, paidAmount = 0) {
+    // return isModeUpdate && isInvoiceEditable(status, paidAmount);
+    return isInvoiceEditable(status, paidAmount);
+  }
+
+  function canEditPayments(status) {
+    return (
+      status === PURCHASE_INVOICE_STATUS.DRAFT ||
+      status === PURCHASE_INVOICE_STATUS.PENDING
+    );
+  }
+
   return (
     <div>
       {/* Header */}
-      <InvoiceHeader isModeUpdate={isModeUpdate} onSubmit={handleSubmit} />
+      <InvoiceHeader
+        isModeUpdate={isModeUpdate}
+        onSubmit={handleSubmit}
+        loading={actionLoading}
+        isEditable={canUpdateInvoice(
+          formData.status,
+          isModeUpdate,
+          calculatePaidAmount(),
+        )}
+      />
 
       <div className="max-w-7xl mx-auto p-4 grid grid-cols-1 xl:grid-cols-3 gap-6">
         {/* Left Column: Invoice Details & Items */}
@@ -234,11 +296,31 @@ export default function AddEditPurchaseInvoicePage() {
             errors={errors}
             updateField={updateField}
             isModeUpdate={isModeUpdate}
+            isEditable={canUpdateInvoice(
+              formData.status,
+              isModeUpdate,
+              calculatePaidAmount(),
+            )}
           />
 
-          <ProductSearch setItems={setItems} />
+          <ProductSearch
+            setItems={setItems}
+            isEditable={canUpdateInvoice(
+              formData.status,
+              isModeUpdate,
+              calculatePaidAmount(),
+            )}
+          />
 
-          <ItemsTable items={items} setItems={setItems} />
+          <ItemsTable
+            items={items}
+            setItems={setItems}
+            isEditable={canUpdateInvoice(
+              formData.status,
+              isModeUpdate,
+              calculatePaidAmount(),
+            )}
+          />
 
           <PaymentsSection
             calculateRemainingAmount={calculateRemainingAmount}
@@ -246,6 +328,7 @@ export default function AddEditPurchaseInvoicePage() {
             payments={payments}
             setPayments={setPayments}
             isModeUpdate={isModeUpdate}
+            canEditPayments={canEditPayments(formData.status)}
           />
         </div>
         {/* Right Column: Summary & Totals */}
@@ -261,6 +344,11 @@ export default function AddEditPurchaseInvoicePage() {
             calculateRemainingAmount={calculateRemainingAmount}
             onSubmit={handleSubmit}
             loading={actionLoading}
+            isEditable={canUpdateInvoice(
+              formData.status,
+              isModeUpdate,
+              calculatePaidAmount(),
+            )}
           />
         </div>
       </div>

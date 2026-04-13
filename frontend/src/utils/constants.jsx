@@ -46,3 +46,17 @@ export const PAYMENT_METHOD = {
   BANKAK: 2,
   FAWRY: 3,
 };
+
+export const PURCHASE_INVOICE_STATUSES = [
+  { value: 1, key: "draft" },
+  { value: 2, key: "pending" },
+  { value: 3, key: "approved" },
+  { value: 4, key: "cancelled" },
+];
+
+export const PURCHASE_INVOICE_STATUS = {
+  DRAFT: 1,
+  PENDING: 2,
+  APPROVED: 3,
+  CANCELLED: 4,
+};

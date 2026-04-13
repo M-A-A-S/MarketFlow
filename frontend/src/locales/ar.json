@@ -335,5 +335,11 @@
     "cash": "نقدي",
     "bankak": "بنكاك",
     "fawry": "فوري"
+  },
+  "purchase_invoice_status": {
+    "draft": "مسودة",
+    "pending": "قيد الانتظار",
+    "approved": "معتمد",
+    "cancelled": "ملغي"
   }
 }

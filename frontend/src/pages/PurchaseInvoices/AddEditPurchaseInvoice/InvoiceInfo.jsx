@@ -2,7 +2,13 @@ import { useLanguage } from "../../../hooks/useLanguage";
 import SupplierSelect from "../../../components/Selects/SupplierSelect";
 import Input from "../../../components/UI/Input";
 
-const InvoiceInfo = ({ formData, updateField, isModeUpdate, errors }) => {
+const InvoiceInfo = ({
+  formData,
+  updateField,
+  isModeUpdate,
+  errors,
+  isEditable,
+}) => {
   const { translations } = useLanguage();
 
   const { add_invoice_title, invoice_no, invoice_date, supplier } =
@@ -17,6 +23,8 @@ const InvoiceInfo = ({ formData, updateField, isModeUpdate, errors }) => {
       <div className="grid items-center grid-cols-1 sm:grid-cols-3 gap-4">
         {isModeUpdate && (
           <Input
+            readOnly
+            disabled
             showLabel={true}
             label={invoice_no}
             value={formData.invoiceNumber}
@@ -27,6 +35,8 @@ const InvoiceInfo = ({ formData, updateField, isModeUpdate, errors }) => {
 
         <Input
           // type="date"
+          readOnly={!isEditable}
+          disabled={!isEditable}
           type="datetime-local"
           showLabel={true}
           label={invoice_date}
@@ -36,6 +46,8 @@ const InvoiceInfo = ({ formData, updateField, isModeUpdate, errors }) => {
         />
 
         <SupplierSelect
+          readOnly={!isEditable}
+          disabled={!isEditable}
           showLabel={true}
           label={supplier}
           value={formData.supplierId}

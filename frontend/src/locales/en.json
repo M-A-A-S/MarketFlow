@@ -335,5 +335,11 @@
     "cash": "Cash",
     "bankak": "Bankak",
     "fawry": "Fawry"
+  },
+  "purchase_invoice_status": {
+    "draft": "Draft",
+    "pending": "Pending",
+    "approved": "Approved",
+    "cancelled": "Cancelled"
   }
 }

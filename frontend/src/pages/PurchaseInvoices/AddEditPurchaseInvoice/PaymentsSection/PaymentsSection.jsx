@@ -9,6 +9,7 @@ const PaymentsSection = ({
   isModeUpdate,
   calculateRemainingAmount,
   calculateNetTotal,
+  canEditPayments,
 }) => {
   const { translations } = useLanguage();
 
@@ -36,6 +37,7 @@ const PaymentsSection = ({
         isModeUpdate={isModeUpdate}
         calculateRemainingAmount={calculateRemainingAmount}
         calculateNetTotal={calculateNetTotal}
+        canEditPayments={canEditPayments}
       />
 
       {payments.length > 0 && (
