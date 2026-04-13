@@ -7,6 +7,7 @@ namespace MarketFlow.Entities
        
         public DateTime InvoiceDate { get; set; } = DateTime.UtcNow;
         public string InvoiceNumber { get; set; }
+        public PurchaseInvoiceStatus Status { get; set; } = PurchaseInvoiceStatus.Draft;
         public int SupplierId { get; set; }
         public decimal TotalBeforeDiscount { get; set; }
         public decimal Discount {  get; set; }

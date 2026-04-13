@@ -1,6 +1,7 @@
 ﻿using MarketFlow.DTOs.PurchaseInvoiceItem;
 using MarketFlow.DTOs.PurchasePayment;
 using MarketFlow.DTOs.Supplier;
+using MarketFlow.Enums;
 
 namespace MarketFlow.DTOs.PurchaseInvoice
 {
@@ -9,6 +10,7 @@ namespace MarketFlow.DTOs.PurchaseInvoice
         public int? Id { get; set; }
         public DateTime? InvoiceDate { get; set; } = DateTime.UtcNow;
         public string? InvoiceNumber { get; set; }
+        public PurchaseInvoiceStatus Status { get; set; } = PurchaseInvoiceStatus.Draft;
         public int SupplierId { get; set; }
         public decimal? TotalBeforeDiscount { get; set; }
         public decimal? Discount { get; set; }
