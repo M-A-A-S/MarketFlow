@@ -355,5 +355,23 @@
     "total_low_to_high": "Total: Low to High",
     "total_high_to_low": "Total: High to Low",
     "invoice_number": "Invoice Number"
+  },
+  "purchase_invoice_filters": {
+    "search_label": "Search",
+    "search_placeholder": "Search by invoice number or supplier...",
+
+    "sort_by_label": "Sort By",
+    "sort_by_placeholder": "Select sorting",
+
+    "supplier_label": "Supplier",
+    "supplier_placeholder": "Select supplier",
+
+    "min_total_label": "Min Total",
+    "min_total_placeholder": "Minimum invoice total",
+
+    "max_total_label": "Max Total",
+    "max_total_placeholder": "Maximum invoice total",
+
+    "clear": "Clear Filters"
   }
 }

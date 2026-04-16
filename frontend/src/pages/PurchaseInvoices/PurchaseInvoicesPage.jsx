@@ -152,6 +152,12 @@ const PurchaseInvoicesPage = () => {
     setCurrentPage(1);
   };
 
+  const handleStatusChange = (e) => {
+    setStatus(e.target.value);
+    console.log("Status -> ", e.target.value);
+    setCurrentPage(1);
+  };
+
   const handleClearFilters = () => {
     setSearch("");
     setSortBy("");
@@ -233,6 +239,8 @@ const PurchaseInvoicesPage = () => {
         handleMaxTotalChange={handleMaxTotalChange}
         supplierId={supplierId}
         handleSupplierIdChange={handleSupplierIdChange}
+        status={status}
+        handleStatusChange={handleStatusChange}
         handleClearFilters={handleClearFilters}
       />
 

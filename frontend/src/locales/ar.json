@@ -355,5 +355,23 @@
     "total_low_to_high": "الإجمالي: من الأقل إلى الأعلى",
     "total_high_to_low": "الإجمالي: من الأعلى إلى الأقل",
     "invoice_number": "رقم الفاتورة"
+  },
+  "purchase_invoice_filters": {
+    "search_label": "بحث",
+    "search_placeholder": "ابحث برقم الفاتورة أو المورد...",
+
+    "sort_by_label": "ترتيب حسب",
+    "sort_by_placeholder": "اختر الترتيب",
+
+    "supplier_label": "المورد",
+    "supplier_placeholder": "اختر المورد",
+
+    "min_total_label": "الحد الأدنى",
+    "min_total_placeholder": "أقل قيمة للفاتورة",
+
+    "max_total_label": "الحد الأعلى",
+    "max_total_placeholder": "أعلى قيمة للفاتورة",
+
+    "clear": "مسح الفلاتر"
   }
 }
