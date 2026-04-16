@@ -1,5 +1,7 @@
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Printer, Trash2 } from "lucide-react";
 import { safeCall } from "../../../utils/utils";
+import { printPurchaseInvoice } from "../../../utils/printPurchaseInvoice";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 const PurchaseInvoiceActions = ({
   handleEdit,
@@ -9,6 +11,8 @@ const PurchaseInvoiceActions = ({
 }) => {
   const onEdit = safeCall(handleEdit);
   const onDelete = safeCall(handleDelete);
+
+  const { language } = useLanguage();
 
   return (
     <div className={`flex items-center gap-3 ${className}`}>
@@ -24,6 +28,13 @@ const PurchaseInvoiceActions = ({
         className="p-2 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-900 transition"
       >
         <Trash2 size={18} />
+      </button>
+
+      <button
+        onClick={() => printPurchaseInvoice(purchaseInvoice, language)}
+        className="p-2 rounded-lg text-purple-600 hover:bg-red-50 dark:hover:bg-purple-900 transition"
+      >
+        <Printer size={18} />
       </button>
     </div>
   );

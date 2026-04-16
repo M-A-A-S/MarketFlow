@@ -1,5 +1,6 @@
 import { toast } from "./toastHelper";
 import { translationsFiles } from "../locales/index.jsx";
+import { PURCHASE_INVOICE_STATUSES } from "./constants.jsx";
 
 export const safeCall = (callback) => {
   return (...args) => {
@@ -50,16 +51,67 @@ export const formatMoney = (value, language = "en") => {
   }).format(number);
 };
 
-export const formatNumber = (value) => {
-  return new Intl.NumberFormat("en-US").format(value);
+export const formatNumber = (value, language = "en") => {
+  const number = Number(value || 0);
+
+  if (isNaN(number)) return "0";
+
+  return new Intl.NumberFormat(language === "ar" ? "ar-EG" : "en-US").format(
+    number,
+  );
 };
 
 export const formatDate = (isoString, language = "en") => {
   if (!isoString) return "";
-  const d = new Date(isoString);
-  return d.toLocaleDateString(language === "en" ? "en-US" : "ar-EG", {
+
+  const date = new Date(isoString);
+
+  if (isNaN(date.getTime())) return "";
+
+  return date.toLocaleDateString(language === "en" ? "en-US" : "ar-EG", {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
+};
+
+export const formatDateTime = (isoString, language = "en") => {
+  if (!isoString) return "";
+
+  const date = new Date(isoString);
+
+  if (isNaN(date.getTime())) return "";
+
+  return date.toLocaleString(language === "en" ? "en-US" : "ar-EG", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
+
+export const formatShortDate = (date, language = "en") => {
+  if (!date) return "";
+
+  return new Date(date).toLocaleDateString(
+    language === "en" ? "en-GB" : "ar-EG",
+  );
+};
+
+export const getStatusName = (value) => {
+  const status = PURCHASE_INVOICE_STATUSES.find(
+    (invoice) => invoice.value == value,
+  );
+  const translations = getTranslations();
+
+  return translations.purchase_invoice_status?.[status?.key] ?? "-";
+};
+
+export const getFullName = (person) => {
+  if (!person) {
+    return "-";
+  }
+
+  return `${person.firstName} ${person.lastName}`;
 };

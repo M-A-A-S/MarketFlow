@@ -34,7 +34,7 @@ namespace MarketFlow.Utilities.Extensions
             return new PurchasePayment
             {
                 Id = DTO.Id ?? 0,
-                PurchaseInvoiceId = (int)DTO.PurchaseInvoiceId,
+                PurchaseInvoiceId = DTO.PurchaseInvoiceId ?? 0,
                 PaymentMethod = DTO.PaymentMethod,
                 Amount = DTO.Amount,
                 PaymentDate = DTO.PaymentDate,

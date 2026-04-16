@@ -16,6 +16,7 @@ import SummaryCard from "./SummaryCard/SummaryCard";
 import { showFail, showSuccess } from "../../../utils/utils";
 import { toast } from "../../../utils/toastHelper";
 import { PURCHASE_INVOICE_STATUS } from "../../../utils/constants";
+import { printPurchaseInvoice } from "../../../utils/printPurchaseInvoice";
 
 const purchasePaymentData = {
   paymentMethod: "",
@@ -216,6 +217,7 @@ export default function AddEditPurchaseInvoicePage() {
       setActionLoading(true);
       const result = await create("purchase-invoices", payload);
       showSuccess(result?.code, add_success);
+      printPurchaseInvoice(result?.data, language);
       navigate("/purchase-invoices");
     } catch (err) {
       showFail(err?.code, add_fail);
@@ -229,6 +231,7 @@ export default function AddEditPurchaseInvoicePage() {
       setActionLoading(true);
       const result = await update(`purchase-invoices/${id}`, payload);
       showSuccess(result?.code, update_success);
+      // printPurchaseInvoice(result?.data, language);
       navigate("/purchase-invoices");
     } catch (err) {
       showFail(err?.code, update_fail);
@@ -254,14 +257,17 @@ export default function AddEditPurchaseInvoicePage() {
     }
 
     // if invoice has ANY payment → lock editing
-    if (paidAmount > 0) {
+    // if (paidAmount > 0) {
+    //   return false;
+    // }
+    if (paidAmount > 0 && isModeUpdate) {
       return false;
     }
 
     return true;
   }
 
-  function canUpdateInvoice(status, isModeUpdate, paidAmount = 0) {
+  function canUpdateInvoice(status, isModeUpdate = false, paidAmount = 0) {
     // return isModeUpdate && isInvoiceEditable(status, paidAmount);
     return isInvoiceEditable(status, paidAmount);
   }
