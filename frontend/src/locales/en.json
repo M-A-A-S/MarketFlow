@@ -33,7 +33,8 @@
     "search": "Search",
     "search_placeholder": "Search...",
     "add": "Add",
-    "edit": "Edit"
+    "edit": "Edit",
+    "status": "Status"
   },
   "product_sort_by": {
     "newest": "Newest",

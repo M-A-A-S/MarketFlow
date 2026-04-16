@@ -2,6 +2,7 @@ import { FileText } from "lucide-react";
 import { useLanguage } from "../../../hooks/useLanguage";
 import { formatDate, formatMoney } from "../../../utils/utils";
 import PurchaseInvoiceActions from "./PurchaseInvoiceActions";
+import PurchaseInvoiceStatusBadge from "./PurchaseInvoiceStatusBadge";
 
 const PurchaseInvoiceCard = ({
   purchaseInvoice,
@@ -15,19 +16,6 @@ const PurchaseInvoiceCard = ({
   const { supplier, net_total, total_paid, remaining, status } =
     translations.pages.purchase_invoice_page;
 
-  const getStatusColor = () => {
-    switch (purchaseInvoice.status) {
-      case 0:
-        return "bg-gray-200 text-gray-700";
-      case 1:
-        return "bg-yellow-100 text-yellow-700";
-      case 2:
-        return "bg-green-100 text-green-700";
-      default:
-        return "";
-    }
-  };
-
   return (
     <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm hover:shadow-md transition border border-transparent p-4 flex flex-col">
       {/* Header */}
@@ -40,9 +28,10 @@ const PurchaseInvoiceCard = ({
         </span>
 
         {/* Status Badge */}
-        <span className={`text-xs px-2 py-1 rounded ${getStatusColor()}`}>
-          {getStatusName(purchaseInvoice?.status)}
-        </span>
+        <PurchaseInvoiceStatusBadge
+          status={purchaseInvoice?.status}
+          statusName={getStatusName(purchaseInvoice?.status)}
+        />
       </h3>
 
       {/* Supplier */}

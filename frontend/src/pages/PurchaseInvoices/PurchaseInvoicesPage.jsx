@@ -276,6 +276,8 @@ const PurchaseInvoicesPage = () => {
               purchaseInvoices={purchaseInvoices}
               handleEdit={handleEdit}
               handleDelete={handleDelete}
+              getFullName={getFullName}
+              getStatusName={getStatusName}
             />
           )}
 

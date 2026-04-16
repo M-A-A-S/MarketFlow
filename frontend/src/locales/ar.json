@@ -33,7 +33,8 @@
     "search": "بحث",
     "search_placeholder": "بحث...",
     "add": "إضافة",
-    "edit": "تعديل"
+    "edit": "تعديل",
+    "status": "الحالة"
   },
   "product_sort_by": {
     "newest": "الأحدث",
