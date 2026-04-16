@@ -1,4 +1,5 @@
 ﻿using MarketFlow.Business.Interfaces;
+using MarketFlow.DTOs.Product;
 using MarketFlow.DTOs.PurchaseInvoice;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,9 +17,9 @@ namespace MarketFlow.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] PurchaseInvoiceFilterDTO filters)
         {
-            return FromResult(await _service.GetAllAsync());
+            return FromResult(await _service.GetFilteredAsync(filters));
         }
 
         [HttpGet("{id}")]

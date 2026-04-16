@@ -1,5 +1,6 @@
 ﻿using MarketFlow.Business.Interfaces;
 using MarketFlow.DataAccess.Interfaces;
+using MarketFlow.DTOs.Product;
 using MarketFlow.DTOs.PurchaseInvoice;
 using MarketFlow.DTOs.PurchaseInvoiceItem;
 using MarketFlow.Entities;
@@ -8,6 +9,7 @@ using MarketFlow.Utilities;
 using MarketFlow.Utilities.Extensions;
 using MarketFlow.Utilities.ResultCodes;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace MarketFlow.Business.Services
 {
@@ -94,6 +96,47 @@ namespace MarketFlow.Business.Services
                 .Success(findAllResult.Data.Select(x => x.ToDTO()));
 
         }
+
+        public async Task<Result<PagedResult<PurchaseInvoiceDTO>>> GetFilteredAsync(PurchaseInvoiceFilterDTO filter)
+        {
+
+            var predicate = BuildInvoiceFilterExpression(filter);
+            var orderBy = BuildInvoiceOrderByExpression(filter);
+
+            var getPagedResult = await _repo.GetPagedAsync(
+                filter: predicate,
+                include: q => q
+                .Include(i => i.Supplier).ThenInclude(s => s.Person)
+                .Include(i => i.Items).ThenInclude(i => i.Product)
+                .Include(i => i.Payments),
+                orderBy: orderBy,
+                pageNumber: filter.PageNumber,
+                pageSize: filter.PageSize
+               );
+
+            if (!getPagedResult.IsSuccess || getPagedResult.Data == null)
+            {
+                return Result<PagedResult<PurchaseInvoiceDTO>>.Failure(ResultCodes.PurchaseInvoicesNotFound);
+            }
+
+            var result = new PagedResult<PurchaseInvoiceDTO>()
+            {
+                Items = getPagedResult.Data.Items.Select(i =>
+                {
+                    var dto = i.ToDTO();
+                    return dto;
+                }).ToList(),
+
+                Total = getPagedResult.Data.Total,
+                PageSize = getPagedResult.Data.PageSize,
+                PageNumber = getPagedResult.Data.PageNumber,
+            };
+
+            return Result<PagedResult<PurchaseInvoiceDTO>>.Success(result);
+
+
+        }
+
         #endregion
 
         #region Update
@@ -398,6 +441,46 @@ namespace MarketFlow.Business.Services
             entity.Discount = discount;
             entity.Tax = tax;
             entity.NetTotal = totalBeforeDiscount - discount + tax;
+        }
+
+
+        private Expression<Func<PurchaseInvoice, bool>> BuildInvoiceFilterExpression(PurchaseInvoiceFilterDTO filter)
+        {
+            return invoice =>
+                (string.IsNullOrEmpty(filter.Search) ||
+                    invoice.InvoiceNumber.Contains(filter.Search)) &&
+
+                (!filter.SupplierId.HasValue || invoice.SupplierId == filter.SupplierId) &&
+                (!filter.Status.HasValue || invoice.Status == filter.Status) &&
+
+                (!filter.FromDate.HasValue || invoice.InvoiceDate >= filter.FromDate) &&
+                (!filter.ToDate.HasValue || invoice.InvoiceDate <= filter.ToDate) &&
+
+                (!filter.MinTotal.HasValue || invoice.NetTotal >= filter.MinTotal) &&
+                (!filter.MaxTotal.HasValue || invoice.NetTotal <= filter.MaxTotal);
+        }
+
+        private Func<IQueryable<PurchaseInvoice>, IOrderedQueryable<PurchaseInvoice>> BuildInvoiceOrderByExpression(PurchaseInvoiceFilterDTO filter)
+        {
+            return query =>
+            {
+                return filter.SortBy switch
+                {
+                    PurchaseInvoiceSortBy.Oldest =>
+                        query.OrderBy(i => i.InvoiceDate),
+
+                    PurchaseInvoiceSortBy.TotalLowToHigh =>
+                        query.OrderBy(i => i.NetTotal),
+
+                    PurchaseInvoiceSortBy.TotalHighToLow =>
+                        query.OrderByDescending(i => i.NetTotal),
+
+                    PurchaseInvoiceSortBy.InvoiceNumber =>
+                        query.OrderBy(i => i.InvoiceNumber),
+
+                    _ => query.OrderByDescending(i => i.InvoiceDate) // Newest
+                };
+            };
         }
 
         #endregion
