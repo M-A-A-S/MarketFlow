@@ -65,6 +65,12 @@ const menus = [
         icon: <UsersRound />,
         roles: ["admin", "manager"],
       },
+      {
+        key: "purchases",
+        path: "/purchase-invoices",
+        icon: <UsersRound />,
+        roles: ["admin", "manager"],
+      },
     ],
   },
 ];

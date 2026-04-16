@@ -60,3 +60,19 @@ export const PURCHASE_INVOICE_STATUS = {
   APPROVED: 3,
   CANCELLED: 4,
 };
+
+export const PURCHASE_INVOICE_SORT_BY = {
+  NEWEST: 0,
+  OLDEST: 1,
+  TOTAL_LOW_TO_HIGH: 2,
+  TOTAL_HIGH_TO_LOW: 3,
+  INVOICE_NUMBER: 4,
+};
+
+export const PURCHASE_INVOICE_SORT_OPTIONS = [
+  { value: 0, key: "newest" },
+  { value: 1, key: "oldest" },
+  { value: 2, key: "total_low_to_high" },
+  { value: 3, key: "total_high_to_low" },
+  { value: 4, key: "invoice_number" },
+];
