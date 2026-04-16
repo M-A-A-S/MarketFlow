@@ -6,63 +6,87 @@ const Table = ({ headers, data }) => {
   const { empty_state } = translations.common;
 
   return (
-    <div className="w-full overflow-x-auto mb-6 ">
-      <table
-        className="min-w-full border-collapse bg-white dark:bg-slate-800 
-       text-sm"
+    <div className="w-full overflow-x-auto">
+      {/* Table wrapper (card style) */}
+      <div
+        className="
+        rounded-2xl 
+        border border-gray-200/60 dark:border-gray-700/60
+        bg-white dark:bg-slate-900
+        shadow-sm
+      "
       >
-        <thead>
-          <tr>
-            {headers.map((header, idx) => (
-              <th
-                key={idx}
-                className="px-4 py-2 border border-gray-300 
-                 font-medium "
-                style={{
-                  textAlign: language === "en" ? "left" : "right",
-                  direction: language === "en" ? "ltr" : "rtl",
-                }}
-              >
-                {header}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.length === 0 ? (
+        <table className="min-w-full text-sm">
+          {/* HEADER */}
+          <thead className="bg-gray-50 dark:bg-slate-800/60">
             <tr>
-              <td colSpan={headers.length} className="text-center px-4 py-6 ">
-                {empty_state}
-              </td>
+              {headers.map((header, idx) => (
+                <th
+                  key={idx}
+                  className="
+                    px-5 py-4
+                    text-xs font-semibold uppercase tracking-wider
+                    text-gray-600 dark:text-gray-300
+                    whitespace-nowrap
+                  "
+                  style={{
+                    textAlign: language === "en" ? "left" : "right",
+                    direction: language === "en" ? "ltr" : "rtl",
+                  }}
+                >
+                  {header}
+                </th>
+              ))}
             </tr>
-          ) : (
-            data.map((row, idx) => (
-              <tr
-                key={idx}
-                className={`transition-colors  ${
-                  idx % 2 === 0
-                    ? "bg-gray-100 dark:bg-slate-700"
-                    : "bg-white dark:bg-slate-800"
-                } hover:bg-gray-200 dark:hover:bg-gray-900`}
-              >
-                {Object.values(row).map((value, i) => (
-                  <td
-                    key={i}
-                    className={`px-4 py-2 border border-gray-300 
-                        `}
-                    style={{
-                      textAlign: language === "en" ? "left" : "right",
-                      direction: language === "en" ? "ltr" : "rtl",
-                    }}
-                  >
-                    {value}
-                  </td>
-                ))}
+          </thead>
+
+          {/* BODY */}
+          <tbody>
+            {data.length === 0 ? (
+              <tr>
+                <td colSpan={headers.length}>
+                  <div className="py-14 text-center">
+                    <div className="text-gray-400 dark:text-gray-500 text-sm">
+                      {empty_state}
+                    </div>
+                  </div>
+                </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : (
+              data.map((row, idx) => (
+                <tr
+                  key={idx}
+                  className="
+                    group
+                    border-t border-gray-100 dark:border-gray-800/60
+                    transition-all duration-200
+                    hover:bg-gray-50/70 dark:hover:bg-slate-800/40
+                  "
+                >
+                  {Object.values(row).map((value, i) => (
+                    <td
+                      key={i}
+                      className="
+                        px-5 py-4
+                        text-gray-700 dark:text-gray-200
+                        whitespace-nowrap
+                        group-hover:text-gray-900 dark:group-hover:text-white
+                        transition-colors
+                      "
+                      style={{
+                        textAlign: language === "en" ? "left" : "right",
+                        direction: language === "en" ? "ltr" : "rtl",
+                      }}
+                    >
+                      {value}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
