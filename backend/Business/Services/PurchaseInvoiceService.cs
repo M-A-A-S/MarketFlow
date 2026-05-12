@@ -63,7 +63,14 @@ namespace MarketFlow.Business.Services
                     .Failure(addResult.Code, addResult.StatusCode);
             }
 
-            return Result<PurchaseInvoiceDTO>.Success(addResult.Data.ToDTO());
+            var GetPurchaseInvoiceResult = await _repo.FindByAsync(pi => pi.Id == addResult.Data.Id,
+                q => q.Include(pi => pi.Items)
+                .ThenInclude(i => i.Product)
+                .Include(pi => pi.Payments)
+                .Include(pi => pi.Supplier)
+                .ThenInclude(s => s.Person));
+
+            return Result<PurchaseInvoiceDTO>.Success(GetPurchaseInvoiceResult?.Data?.ToDTO());
         }
         #endregion
 

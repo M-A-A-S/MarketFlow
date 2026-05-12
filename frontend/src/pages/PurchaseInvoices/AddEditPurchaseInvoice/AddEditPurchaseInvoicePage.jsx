@@ -219,6 +219,8 @@ export default function AddEditPurchaseInvoicePage() {
       showSuccess(result?.code, add_success);
       printPurchaseInvoice(result?.data, language);
       navigate("/purchase-invoices");
+
+      console.log("data -> ", result.data);
     } catch (err) {
       showFail(err?.code, add_fail);
     } finally {
