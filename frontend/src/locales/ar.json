@@ -14,7 +14,10 @@
     "add_purchase_invoice": "إضافة فاتورة مشتريات",
     "edit_purchase_invoice": "تعديل فاتورة مشتريات",
     "sales": "المبيعات",
-    "reports": "التقارير"
+    "reports": "التقارير",
+    "customers": "العملاء",
+    "add_customer": "إضافة عميل",
+    "edit_customer": "تعديل العميل"
   },
   "imagePicker": {
     "label": "صورة",
@@ -364,6 +367,23 @@
       "not_enough_payment_amount": "مبلغ الدفع غير كافٍ",
       "add_success": "تم إنشاء فاتورة البيع بنجاح!",
       "add_fail": "فشل في إنشاء فاتورة البيع. حاول مرة أخرى."
+    },
+    "sale_invoice_page": {
+      "title": "فواتير المبيعات",
+      "description": "إدارة ومتابعة فواتير العملاء.",
+      "empty_state": "لا توجد فواتير.",
+
+      "add_new": "إضافة فاتورة مبيعات جديدة",
+
+      "delete_title": "حذف الفاتورة",
+      "delete_message": "هل أنت متأكد من حذف هذه الفاتورة؟",
+
+      "delete_success": "تم حذف فاتورة المبيعات بنجاح!",
+      "delete_fail": "فشل حذف فاتورة المبيعات.",
+      "customer": "العميل",
+      "net_total": "الإجمالي النهائي",
+      "total_paid": "إجمالي المدفوع",
+      "remaining": "المتبقي"
     }
   },
   "genders": {
@@ -399,6 +419,37 @@
 
     "supplier_label": "المورد",
     "supplier_placeholder": "اختر المورد",
+
+    "min_total_label": "الحد الأدنى",
+    "min_total_placeholder": "أقل قيمة للفاتورة",
+
+    "max_total_label": "الحد الأعلى",
+    "max_total_placeholder": "أعلى قيمة للفاتورة",
+
+    "clear": "مسح الفلاتر"
+  },
+  "sale_invoice_status": {
+    "draft": "مسودة",
+    "pending": "قيد الانتظار",
+    "approved": "معتمد",
+    "cancelled": "ملغي"
+  },
+  "sale_invoice_sort": {
+    "newest": "الأحدث",
+    "oldest": "الأقدم",
+    "total_low_to_high": "الإجمالي: من الأقل إلى الأعلى",
+    "total_high_to_low": "الإجمالي: من الأعلى إلى الأقل",
+    "invoice_number": "رقم الفاتورة"
+  },
+  "sale_invoice_filters": {
+    "search_label": "بحث",
+    "search_placeholder": "ابحث برقم الفاتورة أو العميل...",
+
+    "sort_by_label": "ترتيب حسب",
+    "sort_by_placeholder": "اختر الترتيب",
+
+    "customer_label": "العميل",
+    "customer_placeholder": "اختر العميل",
 
     "min_total_label": "الحد الأدنى",
     "min_total_placeholder": "أقل قيمة للفاتورة",

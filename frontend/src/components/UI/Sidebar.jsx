@@ -73,6 +73,25 @@ const menus = [
       },
     ],
   },
+  {
+    key: "sales",
+    icon: <Package />,
+    roles: ["admin", "manager"],
+    children: [
+      {
+        key: "customers",
+        path: "/customers",
+        icon: <UsersRound />,
+        roles: ["admin", "manager"],
+      },
+      {
+        key: "sales",
+        path: "/sale-invoices",
+        icon: <UsersRound />,
+        roles: ["admin", "manager"],
+      },
+    ],
+  },
 ];
 
 const Sidebar = () => {

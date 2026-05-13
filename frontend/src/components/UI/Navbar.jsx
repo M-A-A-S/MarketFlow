@@ -28,6 +28,11 @@ const Navbar = () => {
     { path: "/purchase-invoices", key: "purchases" },
     { path: "/add-purchase-invoice", key: "add_purchase_invoice" },
     { path: "/edit-purchase-invoice", key: "edit_purchase_invoice" }, // dynamic path
+
+    { path: "/sale-invoices", key: "sales" },
+    { path: "/customers", key: "customers" },
+    { path: "/add-customer", key: "add_customer" },
+    { path: "/edit-customer", key: "edit_customer" },
   ];
 
   // Find the first matching path

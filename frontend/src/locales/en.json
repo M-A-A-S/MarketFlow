@@ -14,7 +14,10 @@
     "add_purchase_invoice": "Add Purchase Invoice",
     "edit_purchase_invoice": "Edit Purchase Invoice",
     "sales": "Sales",
-    "reports": "Reports"
+    "reports": "Reports",
+    "customers": "Customers",
+    "add_customer": "Add Customer",
+    "edit_customer": "Edit Customer"
   },
   "imagePicker": {
     "label": "Image",
@@ -364,6 +367,23 @@
       "not_enough_payment_amount": "Insufficient payment amount",
       "add_success": "Sale invoice created successfully!",
       "add_fail": "Failed to create sale invoice. Try again."
+    },
+    "sale_invoice_page": {
+      "title": "Sale Invoices",
+      "description": "Manage and track customer invoices.",
+      "empty_state": "No invoices found.",
+
+      "add_new": "Add New Sale Invoice",
+
+      "delete_title": "Delete Invoice",
+      "delete_message": "Are you sure you want to delete this invoice?",
+
+      "delete_success": "Sale invoice deleted successfully!",
+      "delete_fail": "Failed to delete sale invoice.",
+      "customer": "Customer",
+      "net_total": "Net Total",
+      "total_paid": "Total Paid",
+      "remaining": "Remaining Balance"
     }
   },
   "genders": {
@@ -399,6 +419,37 @@
 
     "supplier_label": "Supplier",
     "supplier_placeholder": "Select supplier",
+
+    "min_total_label": "Min Total",
+    "min_total_placeholder": "Minimum invoice total",
+
+    "max_total_label": "Max Total",
+    "max_total_placeholder": "Maximum invoice total",
+
+    "clear": "Clear Filters"
+  },
+  "sale_invoice_status": {
+    "draft": "Draft",
+    "pending": "Pending",
+    "approved": "Approved",
+    "cancelled": "Cancelled"
+  },
+  "sale_invoice_sort": {
+    "newest": "Newest",
+    "oldest": "Oldest",
+    "total_low_to_high": "Total: Low to High",
+    "total_high_to_low": "Total: High to Low",
+    "invoice_number": "Invoice Number"
+  },
+  "sale_invoice_filters": {
+    "search_label": "Search",
+    "search_placeholder": "Search by invoice number or customer...",
+
+    "sort_by_label": "Sort By",
+    "sort_by_placeholder": "Select sorting",
+
+    "customer_label": "Customer",
+    "customer_placeholder": "Select customer",
 
     "min_total_label": "Min Total",
     "min_total_placeholder": "Minimum invoice total",
