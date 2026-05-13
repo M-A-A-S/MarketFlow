@@ -383,7 +383,9 @@
       "customer": "العميل",
       "net_total": "الإجمالي النهائي",
       "total_paid": "إجمالي المدفوع",
-      "remaining": "المتبقي"
+      "remaining": "المتبقي",
+      "invoice_number": "رقم الفاتورة",
+      "invoice_date": "تاريخ الفاتورة"
     }
   },
   "genders": {

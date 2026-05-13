@@ -383,7 +383,9 @@
       "customer": "Customer",
       "net_total": "Net Total",
       "total_paid": "Total Paid",
-      "remaining": "Remaining Balance"
+      "remaining": "Remaining Balance",
+      "invoice_number": "Invoice Number",
+      "invoice_date": "Invoice Date"
     }
   },
   "genders": {
