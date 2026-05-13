@@ -57,7 +57,7 @@ namespace MarketFlow.DataAccess.Repositories
 
             var products = await _context.Products
                 .Where(p => productIds.Contains(p.Id))
-                .AsNoTracking()
+                //.AsNoTracking()
                 .ToListAsync();
 
             if (products.Count == 0)

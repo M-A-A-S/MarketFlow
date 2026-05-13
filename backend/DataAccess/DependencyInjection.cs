@@ -20,6 +20,7 @@ namespace MarketFlow.DataAccess
             services.AddScoped<ISaleInvoiceRepository, SaleInvoiceRepository>();
             services.AddScoped<ISaleInvoiceItemRepository, SaleInvoiceItemRepository>();
             services.AddScoped<ISalePaymentRepository, SalePaymentRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
