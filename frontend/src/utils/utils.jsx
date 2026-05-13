@@ -1,6 +1,6 @@
 import { toast } from "./toastHelper";
 import { translationsFiles } from "../locales/index.jsx";
-import { PURCHASE_INVOICE_STATUSES } from "./constants.jsx";
+import { PAYMENT_METHODS, PURCHASE_INVOICE_STATUSES } from "./constants.jsx";
 
 export const safeCall = (callback) => {
   return (...args) => {
@@ -106,6 +106,14 @@ export const getStatusName = (value) => {
   const translations = getTranslations();
 
   return translations.purchase_invoice_status?.[status?.key] ?? "-";
+};
+
+export const getPaymentMethodName = (value) => {
+  const method = PAYMENT_METHODS.find(
+    (paymentMethod) => paymentMethod.value == value,
+  );
+  const translations = getTranslations();
+  return translations.payment_methods?.[method?.label] ?? "-";
 };
 
 export const getFullName = (person) => {

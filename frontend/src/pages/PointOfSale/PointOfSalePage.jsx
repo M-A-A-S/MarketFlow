@@ -7,6 +7,8 @@ import Cart from "./components/Cart";
 import { PAYMENT_METHOD } from "../../utils/constants";
 import { toast } from "../../utils/toastHelper";
 import { useLanguage } from "../../hooks/useLanguage";
+import { printSaleInvoice } from "../../utils/printSaleInvoice";
+import { showFail, showSuccess } from "../../utils/utils";
 
 const CART_KEY = "market_flow_cart";
 const PAYMENTS_KEY = "market_flow_payments";
@@ -31,10 +33,15 @@ export default function PointOfSalePage() {
   const pageSize = 100;
   const debouncedSearch = useDebounce(search, 500);
 
-  const { translations } = useLanguage();
+  const { translations, language } = useLanguage();
 
-  const { empty_cart, no_items, not_enough_payment_amount } =
-    translations.pages.point_of_sale_page;
+  const {
+    empty_cart,
+    no_items,
+    not_enough_payment_amount,
+    add_success,
+    add_fail,
+  } = translations.pages.point_of_sale_page;
 
   const generateFetchProductsUrl = () => {
     const queryParams = new URLSearchParams();
@@ -241,9 +248,8 @@ export default function PointOfSalePage() {
     try {
       setActionLoading(true);
       const result = await create("sale-invoices", payload);
-      // showSuccess(result?.code, add_success);
-      // printPurchaseInvoice(result?.data, language);
-      // navigate("/purchase-invoices");
+      showSuccess(result?.code, add_success);
+      printSaleInvoice(result?.data, language);
 
       setCart({ cartItems: [] });
       setPayments([]);
@@ -253,7 +259,7 @@ export default function PointOfSalePage() {
 
       console.log("data -> ", result.data);
     } catch (err) {
-      // showFail(err?.code, add_fail);
+      showFail(err?.code, add_fail);
       console.error("Error creating sale invoice", err);
     } finally {
       setActionLoading(false);

@@ -361,7 +361,9 @@
       "payment_completed": "Payment completed successfully!",
       "payment_added": "Payment added",
       "no_items": "No items in cart. Please add products to proceed.",
-      "not_enough_payment_amount": "Insufficient payment amount"
+      "not_enough_payment_amount": "Insufficient payment amount",
+      "add_success": "Sale invoice created successfully!",
+      "add_fail": "Failed to create sale invoice. Try again."
     }
   },
   "genders": {
