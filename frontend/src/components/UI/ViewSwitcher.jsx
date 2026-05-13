@@ -1,37 +1,90 @@
 import { Grid2x2, TextAlignJustify } from "lucide-react";
-import Button from "./Button";
+import { useLanguage } from "../../hooks/useLanguage";
 
 const ViewSwitcher = ({ view, setView }) => {
+  const { translations } = useLanguage();
+
+  const { table_view, card_view } = translations.common;
+
+  const baseButtonClass = `
+    relative
+    flex items-center justify-center
+    gap-2
+    px-4 py-2.5
+    rounded-xl
+    transition-all duration-200
+    text-sm font-medium
+    border
+  `;
+
   return (
     <div
-      className=" flex
-        w-fit
-        m-1
-        rounded-xl
-        bg-purple-200
-        transition-colors
-        hover:bg-purple-300"
+      className="
+        inline-flex items-center gap-1
+        p-1
+        rounded-2xl
+        border border-gray-200 dark:border-slate-700
+        bg-gray-100 dark:bg-slate-800
+        shadow-sm
+      "
     >
-      <Button
+      {/* Table View */}
+      <button
+        type="button"
         onClick={() => setView("table")}
-        title="Table View"
-        className={`w-full
-          h-full
-          p-3
-          rounded-xl ${view === "table" ? "bg-purple-500" : "bg-purple-300"}`}
+        title={table_view}
+        className={`
+          ${baseButtonClass}
+
+          ${
+            view === "table"
+              ? `
+                bg-purple-600
+                border-purple-600
+                text-white
+                shadow-md
+              `
+              : `
+                bg-transparent
+                border-transparent
+                text-gray-600 dark:text-gray-300
+                hover:bg-white dark:hover:bg-slate-700
+              `
+          }
+        `}
       >
-        <TextAlignJustify />
-      </Button>
-      <Button
+        <TextAlignJustify size={18} />
+        <span className="hidden sm:inline">{table_view}</span>
+      </button>
+
+      {/* Card View */}
+      <button
+        type="button"
         onClick={() => setView("card")}
-        title="Table View"
-        className={`w-full
-          h-full
-          p-3
-          rounded-xl ${view === "card" ? "bg-purple-500 " : "bg-purple-300"}`}
+        title={card_view}
+        className={`
+          ${baseButtonClass}
+
+          ${
+            view === "card"
+              ? `
+                bg-purple-600
+                border-purple-600
+                text-white
+                shadow-md
+              `
+              : `
+                bg-transparent
+                border-transparent
+                text-gray-600 dark:text-gray-300
+                hover:bg-white dark:hover:bg-slate-700
+              `
+          }
+        `}
       >
-        <Grid2x2 />
-      </Button>
+        <Grid2x2 size={18} />
+        <span className="hidden sm:inline">{card_view}</span>
+      </button>
     </div>
   );
 };
