@@ -8,10 +8,10 @@ namespace MarketFlow.DataAccess
     {
         private readonly AppDbContext _context;
 
-        IProductRepository Products { get; }
-        ISaleInvoiceRepository SaleInvoices { get; }
-        ISaleInvoiceItemRepository SaleInvoiceItems { get; }
-        ISalePaymentRepository SalePayments { get; }
+        public IProductRepository Products { get; }
+        public ISaleInvoiceRepository SaleInvoices { get; }
+        public ISaleInvoiceItemRepository SaleInvoiceItems { get; }
+        public ISalePaymentRepository SalePayments { get; }
 
         public UnitOfWork(
           AppDbContext context,
