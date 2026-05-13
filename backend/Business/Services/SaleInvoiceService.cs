@@ -1,5 +1,6 @@
 ﻿using MarketFlow.Business.Interfaces;
 using MarketFlow.DataAccess;
+using MarketFlow.DTOs.PurchaseInvoice;
 using MarketFlow.DTOs.SaleInvoice;
 using MarketFlow.DTOs.SaleInvoiceItem;
 using MarketFlow.Entities;
@@ -8,6 +9,7 @@ using MarketFlow.Utilities;
 using MarketFlow.Utilities.Extensions;
 using MarketFlow.Utilities.ResultCodes;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace MarketFlow.Business.Services
 {
@@ -20,6 +22,7 @@ namespace MarketFlow.Business.Services
             _unitOfWork = unitOfWork;
         }
 
+        #region Add
         public async Task<Result<SaleInvoiceDTO>> AddAsync(SaleInvoiceDTO dto)
         {
             var IsRequestValidResult = ValidateRequest(dto);
@@ -100,6 +103,89 @@ namespace MarketFlow.Business.Services
             }
 
             return Result<SaleInvoiceDTO>.Success(GetSaleInvoiceResult?.Data?.ToDTO());
+        }
+        #endregion
+
+        #region GetAll
+        public async Task<Result<PagedResult<SaleInvoiceDTO>>> GetFilteredAsync(SaleInvoiceFilterDTO filter)
+        {
+
+            var predicate = BuildInvoiceFilterExpression(filter);
+            var orderBy = BuildInvoiceOrderByExpression(filter);
+
+            var getPagedResult = await _unitOfWork.SaleInvoices.GetPagedAsync(
+                filter: predicate,
+                include: q => q
+                .Include(i => i.Customer).ThenInclude(s => s.Person)
+                .Include(i => i.Items).ThenInclude(i => i.Product)
+                .Include(i => i.Payments),
+                orderBy: orderBy,
+                pageNumber: filter.PageNumber,
+                pageSize: filter.PageSize
+               );
+
+            if (!getPagedResult.IsSuccess || getPagedResult.Data == null)
+            {
+                return Result<PagedResult<SaleInvoiceDTO>>.Failure(ResultCodes.PurchaseInvoicesNotFound);
+            }
+
+            var result = new PagedResult<SaleInvoiceDTO>()
+            {
+                Items = getPagedResult.Data.Items.Select(i =>
+                {
+                    var dto = i.ToDTO();
+                    return dto;
+                }).ToList(),
+
+                Total = getPagedResult.Data.Total,
+                PageSize = getPagedResult.Data.PageSize,
+                PageNumber = getPagedResult.Data.PageNumber,
+            };
+
+            return Result<PagedResult<SaleInvoiceDTO>>.Success(result);
+
+
+        }
+        #endregion
+
+        #region Helper
+        private Expression<Func<SaleInvoice, bool>> BuildInvoiceFilterExpression(SaleInvoiceFilterDTO filter)
+        {
+            return invoice =>
+                (string.IsNullOrEmpty(filter.Search) ||
+                    invoice.InvoiceNumber.Contains(filter.Search)) &&
+
+                (!filter.CustomerId.HasValue || invoice.CustomerId == filter.CustomerId) &&
+                (!filter.Status.HasValue || invoice.Status == filter.Status) &&
+
+                (!filter.FromDate.HasValue || invoice.InvoiceDate >= filter.FromDate) &&
+                (!filter.ToDate.HasValue || invoice.InvoiceDate <= filter.ToDate) &&
+
+                (!filter.MinTotal.HasValue || invoice.NetTotal >= filter.MinTotal) &&
+                (!filter.MaxTotal.HasValue || invoice.NetTotal <= filter.MaxTotal);
+        }
+
+        private Func<IQueryable<SaleInvoice>, IOrderedQueryable<SaleInvoice>> BuildInvoiceOrderByExpression(SaleInvoiceFilterDTO filter)
+        {
+            return query =>
+            {
+                return filter.SortBy switch
+                {
+                    SaleInvoiceSortBy.Oldest =>
+                        query.OrderBy(i => i.InvoiceDate),
+
+                    SaleInvoiceSortBy.TotalLowToHigh =>
+                        query.OrderBy(i => i.NetTotal),
+
+                    SaleInvoiceSortBy.TotalHighToLow =>
+                        query.OrderByDescending(i => i.NetTotal),
+
+                    SaleInvoiceSortBy.InvoiceNumber =>
+                        query.OrderBy(i => i.InvoiceNumber),
+
+                    _ => query.OrderByDescending(i => i.InvoiceDate) // Newest
+                };
+            };
         }
 
         private Result<bool> ValidateRequest(SaleInvoiceDTO request)
@@ -341,5 +427,6 @@ namespace MarketFlow.Business.Services
             return $"INV-{DateTime.UtcNow:yyyy}-{Guid.NewGuid().ToString()[..6].ToUpper()}";
         }
 
+        #endregion
     }
 }

@@ -11,6 +11,6 @@ namespace MarketFlow.Business.Interfaces
         //Task<Result<bool>> DeleteAsync(int id);
         //Task<Result<SaleInvoiceDTO>> GetByIdAsync(int id);
         //Task<Result<IEnumerable<SaleInvoiceDTO>>> GetAllAsync();
-        //Task<Result<PagedResult<SaleInvoiceDTO>>> GetFilteredAsync(PurchaseInvoiceFilterDTO filter);
+        Task<Result<PagedResult<SaleInvoiceDTO>>> GetFilteredAsync(SaleInvoiceFilterDTO filter);
     }
 }

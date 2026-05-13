@@ -16,6 +16,12 @@ namespace MarketFlow.Controllers
             _service = service;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery] SaleInvoiceFilterDTO filters)
+        {
+            return FromResult(await _service.GetFilteredAsync(filters));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] SaleInvoiceDTO dto)
         {
