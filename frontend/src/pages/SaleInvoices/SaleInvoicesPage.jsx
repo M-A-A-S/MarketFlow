@@ -4,7 +4,10 @@ import { useDebounce } from "../../hooks/useDebounce";
 import { useLanguage } from "../../hooks/useLanguage";
 import { read } from "../../api/apiWrapper";
 import { showFail, showSuccess } from "../../utils/utils";
-import { SALE_INVOICE_STATUSES } from "../../utils/constants";
+import {
+  SALE_INVOICE_SORT_BY,
+  SALE_INVOICE_STATUSES,
+} from "../../utils/constants";
 import PageHeader from "../../components/PageHeader";
 import Button from "../../components/UI/Button";
 import { Plus } from "lucide-react";
@@ -119,7 +122,7 @@ const SaleInvoicesPage = () => {
 
   const handleClearFilters = () => {
     setSearch("");
-    setSortBy("Newest");
+    setSortBy(SALE_INVOICE_SORT_BY.NEWEST);
     setCustomerId("");
     setMaxTotal("");
     setMinTotal("");
