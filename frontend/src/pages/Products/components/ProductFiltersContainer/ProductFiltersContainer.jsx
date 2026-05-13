@@ -1,7 +1,7 @@
 import Input from "../../../../components/UI/Input";
 import { useLanguage } from "../../../../hooks/useLanguage";
-import BrandSelect from "../BrandSelect";
-import CategorySelect from "../CategorySelect";
+import BrandSelect from "../../../../components/Selects/BrandSelect";
+import CategorySelect from "../../../../components/Selects/CategorySelect";
 import ProductSortBySelect from "./ProductSortBySelect";
 import StatusSelect from "../StatusSelect";
 import { X } from "lucide-react";

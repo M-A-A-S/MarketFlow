@@ -73,11 +73,11 @@ const ProductsPage = () => {
 
     queryParams.append("sortBy", sortBy || PPRDUCT_SORT_BY.NEWEST);
 
-    if (categoryId !== "") {
+    if (categoryId !== "" && categoryId !== "all") {
       queryParams.append("categoryId", parseInt(categoryId));
     }
 
-    if (brandId !== "") {
+    if (brandId !== "" && brandId !== "all") {
       queryParams.append("brandId", parseInt(brandId));
     }
 

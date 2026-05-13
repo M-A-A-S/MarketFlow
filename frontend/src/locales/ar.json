@@ -330,6 +330,38 @@
 
       "delete_title": "حذف الفاتورة",
       "delete_message": "هل أنت متأكد أنك تريد حذف هذه الفاتورة؟"
+    },
+    "point_of_sale_page": {
+      "title": "نظام نقاط البيع (POS)",
+      "description": "معالجة معاملات المبيعات بسرعة وكفاءة.",
+      "search": "ابحث عن المنتجات...",
+      "category": "الفئة",
+      "brand": "العلامة التجارية",
+      "category_all": "كل الفئات",
+      "brand_all": "كل العلامات التجارية",
+      "cart": "السلة",
+      "empty_cart": "السلة فارغة",
+      "stock": "المخزون",
+      "add": "إضافة",
+      "total": "الإجمالي",
+      "paid": "المدفوع",
+      "remaining": "المتبقي",
+      "payment_method": "طريقة الدفع",
+      "payment_amount": "مبلغ الدفع",
+      "add_payment": "إضافة دفعة",
+      "pay_now": "ادفع الآن",
+      "order_paid": "تم الدفع بالكامل 💜",
+      "remove": "حذف",
+      "increase": "زيادة",
+      "decrease": "نقصان",
+      "currency": "دولار",
+      "transaction_reference": "مرجع المعاملة",
+      "transaction_reference_placeholder": "أدخل مرجع المعاملة (اختياري)",
+      "payment_error": "يجب أن يكون مبلغ الدفع أكبر من 0 ولا يتجاوز الرصيد المتبقي",
+      "payment_completed": "تمت معالجة الدفع بنجاح!",
+      "payment_added": "تمت إضافة الدفعة",
+      "no_items": "لا توجد منتجات في السلة. يرجى إضافة منتجات للمتابعة.",
+      "not_enough_payment_amount": "مبلغ الدفع غير كافٍ"
     }
   },
   "genders": {

@@ -1,9 +1,9 @@
-import { useLanguage } from "../../../hooks/useLanguage";
-import Select from "../../../components/UI/Select";
-import { read } from "../../../api/apiWrapper";
 import { useEffect, useState } from "react";
+import { useLanguage } from "../../hooks/useLanguage";
+import Select from "../UI/Select";
+import { read } from "../../api/apiWrapper";
 
-const BrandSelect = ({
+const CategorySelect = ({
   value,
   onChange,
   required = false,
@@ -13,7 +13,7 @@ const BrandSelect = ({
   showLabel = false,
   name,
 }) => {
-  const [brands, setBrands] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const { language } = useLanguage();
@@ -24,26 +24,32 @@ const BrandSelect = ({
       label: language === "en" ? "Loading..." : "جاري التحميل...",
     },
   ];
-  const fetchBrands = async () => {
+  const fetchCategories = async () => {
     try {
       setLoading(true);
       setIsError(false);
-      const result = await read("brands");
-      const options = result?.data.map((brand) => ({
-        value: brand.id,
-        label: language === "en" ? brand.nameEn : brand.nameAr,
+      const result = await read("categories");
+      const options = result?.data.map((category) => ({
+        value: category.id,
+        label: language === "en" ? category.nameEn : category.nameAr,
       }));
-      setBrands(options);
+
+      options.unshift({
+        value: "all",
+        label: language === "en" ? "All Categories" : "كل الفئات",
+      });
+
+      setCategories(options);
       console.log("options", options);
     } catch (error) {
       setIsError(true);
-      console.error("Failed to fetch brands:", error);
+      console.error("Failed to fetch categories:", error);
     } finally {
       setLoading(false);
     }
   };
   useEffect(() => {
-    fetchBrands();
+    fetchCategories();
   }, []);
 
   if (isError) {
@@ -51,7 +57,7 @@ const BrandSelect = ({
       <div className="flex flex-col gap-1">
         {(showLabel || label) && (
           <label className="text-sm font-medium text-gray-700">
-            {label || (language === "en" ? "Brand" : "الماركة")}
+            {label || (language === "en" ? "Category" : "الفئة")}
           </label>
         )}
 
@@ -61,7 +67,7 @@ const BrandSelect = ({
           </span>
           <button
             type="button"
-            onClick={fetchBrands}
+            onClick={fetchCategories}
             className="text-xs underline text-red-700 hover:text-red-900 font-bold"
           >
             {language === "en" ? "Retry" : "إعادة المحاولة"}
@@ -73,7 +79,7 @@ const BrandSelect = ({
 
   return (
     <Select
-      options={loading ? loadingOptions : brands}
+      options={loading ? loadingOptions : categories}
       label={label}
       value={value || ""}
       onChange={onChange}
@@ -85,4 +91,4 @@ const BrandSelect = ({
     />
   );
 };
-export default BrandSelect;
+export default CategorySelect;

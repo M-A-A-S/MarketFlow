@@ -9,8 +9,8 @@ import Checkbox from "../../components/UI/Checkbox";
 import ImagePicker from "../../components/UI/ImagePicker";
 import { read, create, update } from "../../api/apiWrapper";
 import { showFail, showSuccess } from "../../utils/utils";
-import BrandSelect from "./components/BrandSelect";
-import CategorySelect from "./components/CategorySelect";
+import BrandSelect from "../../components/Selects/BrandSelect";
+import CategorySelect from "../../components/Selects/CategorySelect";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const initialFormState = {
