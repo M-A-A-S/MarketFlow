@@ -38,7 +38,7 @@ const SaleInvoicesPage = () => {
   const [status, setStatus] = useState("");
   const [minTotal, setMinTotal] = useState("");
   const [maxTotal, setMaxTotal] = useState("");
-  const [sortBy, setSortBy] = useState("Newest");
+  const [sortBy, setSortBy] = useState(SALE_INVOICE_SORT_BY.NEWEST);
 
   const [totalItems, setTotalItems] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
