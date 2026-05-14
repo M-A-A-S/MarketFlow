@@ -44,7 +44,7 @@ namespace MarketFlow.DataAccess.Repositories
             }
             catch (Exception ex)
             {
-                return Result<IEnumerable<Product>>.Failure(ex.Message, 500);
+                return Result<IEnumerable<Product>>.Failure(ResultCodes.ServerError, 500, ex.Message);
             }
         }
 

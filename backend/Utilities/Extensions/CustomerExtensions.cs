@@ -16,8 +16,9 @@ namespace MarketFlow.Utilities.Extensions
             return new CustomerDTO
             {
                 Id = entity.Id,
-                PersonId = entity.PersonId,
-                Person = entity.Person.ToDTO(),
+                FirstName = entity.FirstName,
+                LastName = entity.LastName,
+                Phone = entity.Phone
             };
         }
 
@@ -31,8 +32,9 @@ namespace MarketFlow.Utilities.Extensions
             return new Customer
             {
                 Id = DTO.Id ?? default,
-                PersonId = DTO.PersonId ?? default,
-                Person = DTO.Person.ToEntity(),
+                FirstName = DTO.FirstName,
+                LastName = DTO.LastName,
+                Phone = DTO.Phone,
             };
         }
 
@@ -44,7 +46,10 @@ namespace MarketFlow.Utilities.Extensions
                 return;
             }
 
-            entity.Person = DTO.Person.ToEntity();
+            entity.FirstName = DTO.FirstName;
+            entity.LastName = DTO.LastName;  
+            entity.Phone = DTO.Phone;
+            
         }
     }
 }

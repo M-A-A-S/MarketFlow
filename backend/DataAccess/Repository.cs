@@ -137,7 +137,7 @@ namespace MarketFlow.DataAccess
             var entity = await _dbSet.FindAsync(id);
             if (entity == null)
             {
-                return Result<bool>.Failure(ResultCodes.NotFound, 400, "Entity not found");
+                return Result<bool>.Failure(ResultCodes.NotFound, 404, "Entity not found");
             }
             entity.IsDeleted = true;
             entity.DeletedAt = DateTime.UtcNow;
@@ -153,7 +153,7 @@ namespace MarketFlow.DataAccess
                 var deleteResult = await DeleteAsync(id);
                 if (!deleteResult.IsSuccess)
                 {
-                    return Result<bool>.Failure(deleteResult.Code);
+                    return Result<bool>.Failure(deleteResult.Code, deleteResult.StatusCode, deleteResult.Message);
                 }
                 await _context.SaveChangesAsync();
                 return Result<bool>.Success(true);
@@ -291,7 +291,8 @@ Func<IQueryable<T>, IQueryable<T>>? include = null)
         {
             try
             {
-                IQueryable<T> query = _dbSet.AsNoTracking().AsSplitQuery();
+                //IQueryable<T> query = _dbSet.AsNoTracking().AsSplitQuery();
+                IQueryable<T> query = _dbSet.AsSplitQuery();
 
                 if (include != null)
                 {
@@ -302,7 +303,7 @@ Func<IQueryable<T>, IQueryable<T>>? include = null)
 
                 if (entity == null)
                 {
-                    return Result<T>.Failure(ResultCodes.NotFound);
+                    return Result<T>.Failure(ResultCodes.NotFound, 404);
                 }
 
                 return Result<T>.Success(entity);

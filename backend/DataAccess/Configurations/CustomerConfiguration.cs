@@ -10,8 +10,8 @@ namespace MarketFlow.DataAccess.Configurations
         {
             builder.HasKey(s => s.Id);
 
-            builder.Property(s => s.PersonId)
-                .IsRequired();
+            //builder.Property(s => s.PersonId)
+            //    .IsRequired();
 
             builder.Property(s => s.CreatedAt)
                 .HasDefaultValueSql("GETUTCDATE()");
@@ -19,10 +19,10 @@ namespace MarketFlow.DataAccess.Configurations
             builder.Property(s => s.UpdatedAt)
                 .HasDefaultValueSql("GETUTCDATE()");
 
-            builder.HasOne(s => s.Person)
-                .WithOne()
-                .HasForeignKey<Customer>(s => s.PersonId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //builder.HasOne(s => s.Person)
+            //    .WithOne()
+            //    .HasForeignKey<Customer>(s => s.PersonId)
+            //    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

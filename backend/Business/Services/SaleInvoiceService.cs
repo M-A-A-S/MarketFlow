@@ -91,8 +91,7 @@ namespace MarketFlow.Business.Services
             q => q.Include(pi => pi.Items)
             .ThenInclude(i => i.Product)
             .Include(pi => pi.Payments)
-            .Include(pi => pi.Customer)
-            .ThenInclude(s => s.Person));
+            .Include(pi => pi.Customer));
 
             if (!GetSaleInvoiceResult.IsSuccess || GetSaleInvoiceResult.Data == null)
             {
@@ -116,7 +115,7 @@ namespace MarketFlow.Business.Services
             var getPagedResult = await _unitOfWork.SaleInvoices.GetPagedAsync(
                 filter: predicate,
                 include: q => q
-                .Include(i => i.Customer).ThenInclude(s => s.Person)
+                .Include(i => i.Customer)
                 .Include(i => i.Items).ThenInclude(i => i.Product)
                 .Include(i => i.Payments),
                 orderBy: orderBy,
