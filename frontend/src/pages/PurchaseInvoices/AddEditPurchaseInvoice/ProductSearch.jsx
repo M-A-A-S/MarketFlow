@@ -3,6 +3,7 @@ import SearchableSelect from "../../../components/UI/SearchableSelect";
 import { useDebounce } from "../../../hooks/useDebounce";
 import { read } from "../../../api/apiWrapper";
 import { useLanguage } from "../../../hooks/useLanguage";
+import { formatMoney } from "../../../utils/utils";
 
 const ProductSearch = ({ setItems, isEditable }) => {
   const [searchText, setSearchText] = useState("");
@@ -11,7 +12,7 @@ const ProductSearch = ({ setItems, isEditable }) => {
 
   const { translations, language } = useLanguage();
 
-  const { product_title, product_search } =
+  const { product_title, product_search, product, price, sku } =
     translations.pages.purchase_invoice_page;
 
   const debouncedSearch = useDebounce(searchText);
@@ -72,6 +73,11 @@ const ProductSearch = ({ setItems, isEditable }) => {
       loading={loadingProducts}
       valueKey="id"
       labelKey={language == "en" ? "nameEn" : "nameAr"}
+      renderLabelOption={
+        (item) =>
+          `${product}: ${language === "en" ? item?.nameEn : item?.nameAr}, ${sku}: ${item?.sku || "No SKU"}, ${price}: ${formatMoney(item?.price || "No Price")}`
+        // `${item?.firstName || ""} ${item?.lastName || ""} (${item?.phone || "No Phone"})`
+      }
       //   disabled={isModeUpdate}
     />
   );

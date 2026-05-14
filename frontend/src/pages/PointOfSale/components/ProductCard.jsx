@@ -1,3 +1,4 @@
+import Button from "../../../components/UI/Button";
 import { useLanguage } from "../../../hooks/useLanguage";
 import { formatMoney } from "../../../utils/utils";
 
@@ -20,13 +21,12 @@ const ProductCard = ({ product, addToCart }) => {
           ${formatMoney(product.price)}
         </span>
 
-        <button
-          disabled={product.stockQuantity === 0}
+        <Button
+          disabled={Number(product.stockQuantity) === 0}
           onClick={() => addToCart(product)}
-          className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-xl"
         >
           {add}
-        </button>
+        </Button>
       </div>
     </div>
   );

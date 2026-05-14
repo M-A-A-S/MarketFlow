@@ -2,12 +2,12 @@ import Button from "../../../components/UI/Button";
 import Input from "../../../components/UI/Input";
 import { useLanguage } from "../../../hooks/useLanguage";
 
-const CreateCustomerForm = ({
-  newCustomer,
-  setNewCustomer,
-  createCustomer,
-  errors,
+const CustomerForm = ({
+  customerFormData,
+  setCustomerFormData,
+  onSubmit,
   onCancel,
+  errors,
   actionLoading,
 }) => {
   const { translations } = useLanguage();
@@ -27,14 +27,14 @@ const CreateCustomerForm = ({
   const { cancel } = translations.common;
 
   const updateField = (name, value) => {
-    setNewCustomer((prev) => ({ ...prev, [name]: value }));
+    setCustomerFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
-    <form className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t pt-4">
+    <form className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t pt-4 dark:border-t-slate-700 ">
       <Input
         label={first_name_label}
-        value={newCustomer.firstName}
+        value={customerFormData.firstName}
         errorMessage={errors.firstName}
         placeholder={first_name_placeholder}
         showLabel
@@ -43,7 +43,7 @@ const CreateCustomerForm = ({
 
       <Input
         label={last_name_label}
-        value={newCustomer.lastName}
+        value={customerFormData.lastName}
         errorMessage={errors.lastName}
         placeholder={last_name_placeholder}
         showLabel
@@ -52,7 +52,7 @@ const CreateCustomerForm = ({
 
       <Input
         label={phone_label}
-        value={newCustomer.phone}
+        value={customerFormData.phone}
         errorMessage={errors.phone}
         placeholder={phone_placeholder}
         showLabel
@@ -63,7 +63,7 @@ const CreateCustomerForm = ({
         <Button disabled={actionLoading} onClick={onCancel}>
           {cancel}
         </Button>
-        <Button type="submit" disabled={actionLoading} onClick={createCustomer}>
+        <Button type="submit" disabled={actionLoading} onClick={onSubmit}>
           {save_customer}
         </Button>
       </div>
@@ -71,4 +71,4 @@ const CreateCustomerForm = ({
   );
 };
 
-export default CreateCustomerForm;
+export default CustomerForm;

@@ -8,7 +8,7 @@ import { PAYMENT_METHOD } from "../../utils/constants";
 import { toast } from "../../utils/toastHelper";
 import { useLanguage } from "../../hooks/useLanguage";
 import { printSaleInvoice } from "../../utils/printSaleInvoice";
-import { showFail, showSuccess } from "../../utils/utils";
+import { formatMoney, showFail, showSuccess } from "../../utils/utils";
 import CustomerSection from "./components/CustomerSection";
 
 const CART_KEY = "market_flow_cart";
@@ -54,6 +54,9 @@ export default function PointOfSalePage() {
     phone_error,
     invalid_phone_error,
     customer: customer_title,
+    payment_amount_exceed,
+    change_amount_to,
+    to_complete_the_sale,
   } = translations.pages.point_of_sale_page;
 
   const generateFetchProductsUrl = () => {
@@ -211,6 +214,13 @@ export default function PointOfSalePage() {
 
     if (!payments.length || remaining > 0) {
       toast.error(not_enough_payment_amount);
+      return false;
+    }
+
+    if (remaining < 0) {
+      toast.error(
+        `${payment_amount_exceed} ${change_amount_to} ${formatMoney(remaining)} ${to_complete_the_sale}`,
+      );
       return false;
     }
 

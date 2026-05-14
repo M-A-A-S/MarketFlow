@@ -280,6 +280,9 @@
       "sku": "SKU",
       "in_stock": "المخزون",
 
+      "product": "المنتج",
+      "price": "سعر الوحدة",
+
       "table_product": "المنتج",
       "table_qty": "الكمية",
       "table_qty_error": "يجب أن تكون الكمية أكبر من 0",
@@ -373,6 +376,8 @@
       "save_customer": "حفظ العميل",
       "add_customer_success": "تم إنشاء العميل بنجاح!",
       "add_customer_fail": "فشل في إنشاء العميل. حاول مرة أخرى.",
+      "update_customer_success": "تم تحديث العميل بنجاح!",
+      "update_customer_fail": "فشل في تحديث العميل. حاول مرة أخرى.",
       "first_name_label": "الاسم الأول",
       "first_name_placeholder": "أدخل الاسم الأول",
       "first_name_error": "الاسم الأول مطلوب",
@@ -382,7 +387,10 @@
       "phone_label": "الهاتف",
       "phone_placeholder": "أدخل رقم الهاتف",
       "phone_error": "رقم الهاتف مطلوب",
-      "invalid_phone_error": "يجب أن يكون رقم الهاتف رقمًا سودانيًا صالحًا"
+      "invalid_phone_error": "يجب أن يكون رقم الهاتف رقمًا سودانيًا صالحًا",
+      "payment_amount_exceed": "Payment amount cannot exceed remaining balance",
+      "change_amount_to": "Change amount to",
+      "to_complete_the_sale": "to complete the sale"
     },
     "sale_invoice_page": {
       "title": "فواتير المبيعات",

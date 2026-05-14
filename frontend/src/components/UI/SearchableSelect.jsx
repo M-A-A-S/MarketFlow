@@ -15,6 +15,7 @@ const SearchableSelect = ({
   disabled = false,
   label = "",
   showLabel = false,
+  renderLabelOption,
 }) => {
   const [open, setOpen] = useState(false);
   const { language } = useLanguage();
@@ -89,9 +90,11 @@ const SearchableSelect = ({
                   setOpen(false);
                 }}
                 className="px-4 py-3 text-sm cursor-pointer 
-                hover:bg-gray-50 dark:hover:bg-slate-700 active:bg-gray-100 transition border-b last:border-0"
+                hover:bg-gray-50 dark:hover:bg-slate-600 active:bg-gray-100 
+                transition border-b dark:border-b-gray-700 last:border-0"
               >
-                {item[labelKey]}
+                {/* {item[labelKey]} */}
+                {renderLabelOption ? renderLabelOption(item) : item[labelKey]}
               </div>
             ))}
         </div>
