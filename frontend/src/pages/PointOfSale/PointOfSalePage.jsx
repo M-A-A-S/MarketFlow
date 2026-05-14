@@ -9,9 +9,11 @@ import { toast } from "../../utils/toastHelper";
 import { useLanguage } from "../../hooks/useLanguage";
 import { printSaleInvoice } from "../../utils/printSaleInvoice";
 import { showFail, showSuccess } from "../../utils/utils";
+import CustomerSection from "./components/CustomerSection";
 
 const CART_KEY = "market_flow_cart";
 const PAYMENTS_KEY = "market_flow_payments";
+const CUSTOMER_KEY = "market_flow_customer";
 
 export default function PointOfSalePage() {
   const [cart, setCart] = useState({
@@ -29,6 +31,8 @@ export default function PointOfSalePage() {
   const [payments, setPayments] = useState([]);
   const [paymentMethod, setPaymentMethod] = useState(PAYMENT_METHOD.CASH);
 
+  const [customer, setCustomer] = useState(null);
+
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 100;
   const debouncedSearch = useDebounce(search, 500);
@@ -41,6 +45,15 @@ export default function PointOfSalePage() {
     not_enough_payment_amount,
     add_success,
     add_fail,
+    add_customer_success,
+    add_customer_fail,
+    add_customer_title,
+    save_customer,
+    first_name_error,
+    last_name_error,
+    phone_error,
+    invalid_phone_error,
+    customer: customer_title,
   } = translations.pages.point_of_sale_page;
 
   const generateFetchProductsUrl = () => {
@@ -90,12 +103,16 @@ export default function PointOfSalePage() {
   useEffect(() => {
     const savedCart = localStorage.getItem(CART_KEY);
     const savedPayments = localStorage.getItem(PAYMENTS_KEY);
+    const savedCustomer = localStorage.getItem(CUSTOMER_KEY);
 
     if (savedCart) {
       setCart(JSON.parse(savedCart));
     }
     if (savedPayments) {
       setPayments(JSON.parse(savedPayments));
+    }
+    if (savedCustomer) {
+      setCustomer(JSON.parse(savedCustomer));
     }
   }, []);
 
@@ -106,6 +123,10 @@ export default function PointOfSalePage() {
   useEffect(() => {
     localStorage.setItem(PAYMENTS_KEY, JSON.stringify(payments));
   }, [payments]);
+
+  useEffect(() => {
+    localStorage.setItem(CUSTOMER_KEY, JSON.stringify(customer));
+  }, [customer]);
 
   const addToCart = (product) => {
     setCart((prevCart) => {
@@ -206,6 +227,8 @@ export default function PointOfSalePage() {
 
     const payload = {};
 
+    payload.customerId = Number(customer?.id) || null;
+
     payload.items = cart?.cartItems
       ?.filter((item) => item.productId && Number(item.quantity || 0) > 0)
       ?.map((item) => ({
@@ -279,6 +302,14 @@ export default function PointOfSalePage() {
             setBrandId={setBrandId}
             search={search}
             setSearch={setSearch}
+          />
+
+          {/* CUSTOMER */}
+          <CustomerSection
+            customer={customer}
+            setCustomer={setCustomer}
+            actionLoading={actionLoading}
+            setActionLoading={setActionLoading}
           />
           {/* PRODUCTS */}
           <Products products={products} addToCart={addToCart} />

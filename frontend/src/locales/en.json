@@ -366,7 +366,23 @@
       "no_items": "No items in cart. Please add products to proceed.",
       "not_enough_payment_amount": "Insufficient payment amount",
       "add_success": "Sale invoice created successfully!",
-      "add_fail": "Failed to create sale invoice. Try again."
+      "add_fail": "Failed to create sale invoice. Try again.",
+
+      "customer": "Customer",
+      "add_customer_title": "Add Customer",
+      "save_customer": "Save Customer",
+      "add_customer_success": "Customer created successfully!",
+      "add_customer_fail": "Failed to create customer. Try again.",
+      "first_name_label": "First Name",
+      "first_name_placeholder": "Enter first name",
+      "first_name_error": "First name is required",
+      "last_name_label": "Last Name",
+      "last_name_placeholder": "Enter last name",
+      "last_name_error": "Last name is required",
+      "phone_label": "Phone",
+      "phone_placeholder": "Enter phone number",
+      "phone_error": "Phone is required",
+      "invalid_phone_error": "Phone number must be a valid Sudanese phone number"
     },
     "sale_invoice_page": {
       "title": "Sale Invoices",
