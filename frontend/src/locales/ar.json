@@ -410,6 +410,40 @@
       "remaining": "المتبقي",
       "invoice_number": "رقم الفاتورة",
       "invoice_date": "تاريخ الفاتورة"
+    },
+    "customers_page": {
+      "title": "العملاء",
+      "description": "إدارة العملاء",
+      "add_new_customer": "إضافة عميل جديد",
+      "empty_state": "لا يوجد عملاء",
+
+      "delete_customer_title": "حذف العميل",
+      "delete_customer_message": "هل أنت متأكد من حذف هذا العميل؟ لا يمكن التراجع عن هذا الإجراء.",
+
+      "delete_success": "تم حذف العميل بنجاح",
+      "delete_fail": "فشل حذف العميل",
+
+      "first_name": "الاسم الأول",
+      "last_name": "الاسم الأخير",
+      "phone": "رقم الهاتف",
+      "address": "العنوان",
+
+      "image": "الصورة الشخصية",
+
+      "first_name_placeholder": "أدخل الاسم الأول",
+      "last_name_placeholder": "أدخل الاسم الأخير",
+      "phone_placeholder": "أدخل رقم الهاتف",
+      "address_placeholder": "أدخل العنوان",
+
+      "create_customer": "إضافة عميل",
+      "update_customer": "تحديث العميل",
+      "save_customer": "حفظ",
+
+      "add_customer_success": "تم إنشاء العميل بنجاح",
+      "add_customer_fail": "فشل إنشاء العميل",
+
+      "update_customer_success": "تم تحديث العميل بنجاح",
+      "update_customer_fail": "فشل تحديث العميل"
     }
   },
   "genders": {
