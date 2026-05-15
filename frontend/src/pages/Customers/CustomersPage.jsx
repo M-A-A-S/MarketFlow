@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { read, remove } from "../../api/apiWrapper";
 import { useLanguage } from "../../hooks/useLanguage";
 import { Plus } from "lucide-react";
+import { showFail, showSuccess } from "../../utils/utils";
 
 const CustomersPage = () => {
   const [view, setView] = useState("card");
